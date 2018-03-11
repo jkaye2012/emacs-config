@@ -4,6 +4,7 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+(require 'use-package)
 (setq use-package-always-ensure t)
 
 ;; Emacs-wide defaults
@@ -83,6 +84,8 @@
 
 (use-package hydra
   :config
+  (setq hydra-key-doc-function #'(lambda (key key-width doc doc-width)
+				   (format (format "%%%ds → %%%ds" key-width (- -1 doc-width)) key doc)))
   (defhydra hydra-buffer (:exit t)
     "Buffer"
     ("b" helm-mini "helm")
@@ -203,7 +206,7 @@
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package)))
+    (helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package)))
  '(sml/mode-width
    (if
        (eq
