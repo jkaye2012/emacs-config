@@ -112,6 +112,7 @@ Lisp function does not specify a special indentation."
   :config
   (defhydra hydra-window-select ()
     "Select window"
+    ("." nil "exit")
     ("h" evil-window-left "left")
     ("j" evil-window-down "down")
     ("k" evil-window-up "up")
@@ -121,12 +122,23 @@ Lisp function does not specify a special indentation."
   :config
   (general-evil-setup)
   (general-auto-unbind-keys)
+
+  (defun my/find-config ()
+    (interactive)
+    (find-file "~/.emacs.d/init.el"))
+
+  (general-define-key
+   :states '(normal)
+    "C-j" '(evil-paste-pop :wk "Paste previous")
+    "C-k" '(evil-paste-pop-next :wk "Paste next"))
+
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "SPC" '(helm-M-x :wk "Execute command")
    "'" '(eshell :wk "Eshell")
+   "\\" '(my/find-config :wk "Edit config")
 
    "b" '(nil :wk "Buffer")
    "bb" '(helm-mini :wk "list")
@@ -145,11 +157,15 @@ Lisp function does not specify a special indentation."
    "sj" '(helm-semantic :wk "jump")
 
    "w" '(nil :wk "Window")
+   "wh" '(evil-window-left :wk "left")
+   "wj" '(evil-window-down :wk "down")
+   "wk" '(evil-window-up :wk "up")
+   "wl" '(evil-window-right :wk "right")
    "wd" '(delete-window :wk "delete")
    "wm" '(delete-other-windows :wk "maximize")
    "ws" '(hydra-window-select/body :wk "select")
-   "w/" '(evil-window-split :wk "split horizontally")
-   "w-" '(evil-window-vsplit :wk "split vertically")
+   "w/" '(evil-window-vsplit :wk "split vertically")
+   "w-" '(evil-window-split :wk "split horizontally")
 
    "W" '(venv-workon :wk "Choose virtualenv")
    )
@@ -171,6 +187,10 @@ Lisp function does not specify a special indentation."
 	      ("C-k" . helm-previous-line))
   :config
   (setq helm-ff-file-name-history-use-recentf t)
+
+  (use-package helm-flx
+    :config
+    (helm-flx-mode t))
 
   (use-package helm-projectile
     :config
@@ -222,7 +242,16 @@ Lisp function does not specify a special indentation."
 (use-package flycheck
   :config
   (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
-  (add-hook 'python-mode-hook 'flycheck-mode))
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "e" '(nil :wk "Errors")
+   "el" '(flycheck-list-errors :wk "list")
+   "ep" '(flycheck-next-error :wk "previous"))
+   "en" '(flycheck-previous-error :wk "next"))
 
 (use-package smartparens
   :config
@@ -236,7 +265,12 @@ Lisp function does not specify a special indentation."
   (setq company-idle-delay 0.25)
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
-  (global-company-mode))
+  (global-company-mode)
+
+  (use-package company-flx
+    :config
+    (setq company-flx-limit 100)
+    (company-flx-mode t)))
 
 (use-package pyenv-mode
   :config
@@ -299,10 +333,12 @@ is achieved by adding the relevant text properties."
   :config
   (setq eshell-highlight-prompt nil
 	eshell-prompt-function 'epe-theme-lambda)
-  (general-define-key
-   :states '(normal insert)
-   "C-j" 'eshell-next-input
-   "C-k" 'eshell-previous-input)
+
+  (defun my/setup-eshell-keys ()
+    (local-set-key (kbd "C-j") 'eshell-next-input)
+    (local-set-key (kbd "C-k") 'eshell-previous-input))
+
+  (add-hook 'eshell-mode-hook 'my/setup-eshell-keys)
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
 
