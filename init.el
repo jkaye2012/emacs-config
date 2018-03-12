@@ -4,6 +4,10 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(unless (require 'use-package nil 'noerror)
+  (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
 
@@ -57,7 +61,8 @@
 (use-package smartparens
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode))
+  (smartparens-global-mode)
+  (show-smartparens-global-mode))
 
 (use-package pyenv-mode
   :config
@@ -92,7 +97,9 @@
     ("d" evil-delete-buffer "delete"))
   (defhydra hydra-help-describe (:exit t)
     "Describe"
-    ("k" describe-key "key"))
+    ("f" describe-function "function")
+    ("k" describe-key "key")
+    ("v" describe-variable "variable"))
   (defhydra hydra-help (:exit t)
     "Help"
     ("d" hydra-help-describe/body "describe"))
@@ -101,6 +108,7 @@
     ("f" helm-find-files "find"))
   (defhydra hydra-git (:exit t)
     "Git"
+    ("d" magit-diff "diff")
     ("s" magit-status "status"))
   (defhydra hydra-jump (:exit t)
     "Jump"
@@ -138,6 +146,8 @@
     ("t" nosetests-one "current test"))
   (defhydra hydra-python-mode (:exit t)
     "Python"
+    ("d" anaconda-mode-show-doc "show documentation")
+    ("g" anaconda-mode-find-definitions "go to definition")
     ("t" hydra-python-test/body "test"))
   )
 
@@ -185,6 +195,20 @@
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
   (global-company-mode))
 
+(defun protect-eshell-prompt ()
+  "Protect Eshell's prompt like Comint's prompts.
+E.g. `evil-change-whole-line' won't wipe the prompt. This
+is achieved by adding the relevant text properties."
+  (let ((inhibit-field-text-motion t))
+    (add-text-properties
+     (point-at-bol)
+     (point)
+     '(rear-nonsticky t
+		      inhibit-line-move-field-capture t
+		      field output
+                      read-only t
+                      front-sticky (field inhibit-line-move-field-capture)))))
+
 (use-package eshell-prompt-extras
   :config
   (setq eshell-highlight-prompt nil
@@ -193,6 +217,7 @@
    :states '(normal insert)
    "C-j" 'eshell-next-input
    "C-k" 'eshell-previous-input)
+  (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
 
 (custom-set-variables
@@ -206,75 +231,7 @@
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package)))
- '(sml/mode-width
-   (if
-       (eq
-	(powerline-current-separator)
-	(quote arrow))
-       (quote right)
-     (quote full)))
- '(sml/pos-id-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-		  (quote display)
-		  (funcall
-		   (intern
-		    (format "powerline-%s-%s"
-			    (powerline-current-separator)
-			    (car powerline-default-separator-dir)))
-		   (quote powerline-active1)
-		   (quote powerline-active2))))
-     (:propertize " " face powerline-active2))))
- '(sml/pos-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-		  (quote display)
-		  (funcall
-		   (intern
-		    (format "powerline-%s-%s"
-			    (powerline-current-separator)
-			    (cdr powerline-default-separator-dir)))
-		   (quote powerline-active1)
-		   (quote sml/global))))
-     (:propertize " " face sml/global))))
- '(sml/pre-id-separator
-   (quote
-    (""
-     (:propertize " " face sml/global)
-     (:eval
-      (propertize " "
-		  (quote display)
-		  (funcall
-		   (intern
-		    (format "powerline-%s-%s"
-			    (powerline-current-separator)
-			    (car powerline-default-separator-dir)))
-		   (quote sml/global)
-		   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active2)
-     (:eval
-      (propertize " "
-		  (quote display)
-		  (funcall
-		   (intern
-		    (format "powerline-%s-%s"
-			    (powerline-current-separator)
-			    (cdr powerline-default-separator-dir)))
-		   (quote powerline-active2)
-		   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
+    (helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
