@@ -20,6 +20,84 @@
 (semantic-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(defun Fuco1/lisp-indent-function (indent-point state)
+  "This function is the normal value of the variable `lisp-indent-function'.
+The function `calculate-lisp-indent' calls this to determine
+if the arguments of a Lisp function call should be indented specially.
+
+INDENT-POINT is the position at which the line being indented begins.
+Point is located at the point to indent under (for default indentation);
+STATE is the `parse-partial-sexp' state for that position.
+
+If the current line is in a call to a Lisp function that has a non-nil
+property `lisp-indent-function' (or the deprecated `lisp-indent-hook'),
+it specifies how to indent.  The property value can be:
+
+* `defun', meaning indent `defun'-style
+  \(this is also the case if there is no property and the function
+  has a name that begins with \"def\", and three or more arguments);
+
+* an integer N, meaning indent the first N arguments specially
+  (like ordinary function arguments), and then indent any further
+  arguments like a body;
+
+* a function to call that returns the indentation (or nil).
+  `lisp-indent-function' calls this function with the same two arguments
+  that it itself received.
+
+This function returns either the indentation to use, or nil if the
+Lisp function does not specify a special indentation."
+  (let ((normal-indent (current-column))
+        (orig-point (point)))
+    (goto-char (1+ (elt state 1)))
+    (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
+    (cond
+     ;; car of form doesn't seem to be a symbol, or is a keyword
+     ((and (elt state 2)
+           (or (not (looking-at "\\sw\\|\\s_"))
+               (looking-at ":")))
+      (if (not (> (save-excursion (forward-line 1) (point))
+                  calculate-lisp-indent-last-sexp))
+          (progn (goto-char calculate-lisp-indent-last-sexp)
+                 (beginning-of-line)
+                 (parse-partial-sexp (point)
+                                     calculate-lisp-indent-last-sexp 0 t)))
+      ;; Indent under the list or under the first sexp on the same
+      ;; line as calculate-lisp-indent-last-sexp.  Note that first
+      ;; thing on that line has to be complete sexp since we are
+      ;; inside the innermost containing sexp.
+      (backward-prefix-chars)
+      (current-column))
+     ((and (save-excursion
+             (goto-char indent-point)
+             (skip-syntax-forward " ")
+             (not (looking-at ":")))
+           (save-excursion
+             (goto-char orig-point)
+             (looking-at ":")))
+      (save-excursion
+        (goto-char (+ 2 (elt state 1)))
+        (current-column)))
+     (t
+      (let ((function (buffer-substring (point)
+                                        (progn (forward-sexp 1) (point))))
+            method)
+        (setq method (or (function-get (intern-soft function)
+                                       'lisp-indent-function)
+                         (get (intern-soft function) 'lisp-indent-hook)))
+        (cond ((or (eq method 'defun)
+                   (and (null method)
+                        (> (length function) 3)
+                        (string-match "\\`def" function)))
+               (lisp-indent-defform state indent-point))
+              ((integerp method)
+               (lisp-indent-specform method state
+                                     indent-point normal-indent))
+              (method
+               (funcall method indent-point state))))))))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (setq-local lisp-indent-function #'Fuco1/lisp-indent-function)))
+
 (use-package ample-theme)
 
 (use-package evil
@@ -27,33 +105,113 @@
   (setq evil-disable-insert-state-bindings t)
   (global-set-key (kbd "C-u") 'evil-scroll-up)
   (define-key evil-normal-state-map (kbd "<tab>") 'evil-indent-line)
+  (define-key evil-motion-state-map (kbd ",") nil)
   (evil-mode 1))
 
-(use-package helm
+(use-package hydra
   :config
-  (setq helm-ff-file-name-history-use-recentf t)
+  (defhydra hydra-window-select ()
+    "Select window"
+    ("h" evil-window-left "left")
+    ("j" evil-window-down "down")
+    ("k" evil-window-up "up")
+    ("l" evil-window-right "right")))
+
+(use-package general
+  :config
+  (general-evil-setup)
+  (general-auto-unbind-keys)
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "SPC" '(helm-M-x :wk "Execute command")
+   "'" '(eshell :wk "Eshell")
+
+   "b" '(nil :wk "Buffer")
+   "bb" '(helm-mini :wk "list")
+   "bd" '(evil-delete-buffer :wk "delete")
+
+   "f" '(nil :wk "File")
+   "ff" '(helm-find-files :wk "find")
+
+   "h"  '(nil :wk "Help")
+   "hd" '(nil :wk "Describe")
+   "hdv" '(describe-variable :wk "variable")
+   "hdf" '(describe-function :wk "function")
+   "hdk" '(describe-key :wk "key")
+
+   "s" '(nil :wk "Semantic")
+   "sj" '(helm-semantic :wk "jump")
+
+   "w" '(nil :wk "Window")
+   "wd" '(delete-window :wk "delete")
+   "wm" '(delete-other-windows :wk "maximize")
+   "ws" '(hydra-window-select/body :wk "select")
+   "w/" '(evil-window-split :wk "split horizontally")
+   "w-" '(evil-window-vsplit :wk "split vertically")
+
+   "W" '(venv-workon :wk "Choose virtualenv")
+   )
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'emacs-lisp-mode-map
+   :prefix ","
+   "e" '(nil :wk "Evaluate")
+   "eb" '(eval-buffer :wk "buffer")))
+
+(use-package projectile)
+
+(use-package helm
   :bind (:map helm-map
 	      ("<tab>" . helm-execute-persistent-action)
 	      ("C-h" . helm-find-files-up-one-level)
 	      ("C-j" . helm-next-line)
 	      ("C-k" . helm-previous-line))
+  :config
+  (setq helm-ff-file-name-history-use-recentf t)
+
+  (use-package helm-projectile
+    :config
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+     "p" '(nil :wk "In project")
+     "pf" '(helm-projectile-find-file :wk "find file")
+     "p/" '(helm-projectile-ag :wk "search")))
+
+  (use-package helm-ag)
   )
 
-(use-package avy)
-
-(use-package projectile)
-
-(use-package helm-projectile)
-
-(use-package helm-ag)
+(use-package avy
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "j"  '(nil :wk "Jump to")
+   "jc" '(avy-goto-char :wk "char")
+   "jw" '(avy-goto-word-1 :wk "word")
+   "jl" '(avy-goto-line :wk "line")))
 
 (use-package yasnippet
   :config
-  (yas-global-mode t))
+  (yas-global-mode t)
 
-(use-package yasnippet-snippets)
+  (use-package yasnippet-snippets))
 
-(use-package magit)
+
+(use-package magit
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "g" '(nil :wk "Git")
+   "gs" '(magit-status :wk "status")
+   "gd" '(magit-diff :wk "diff")))
 
 (use-package evil-magit)
 
@@ -72,6 +230,14 @@
   (smartparens-global-mode)
   (show-smartparens-global-mode))
 
+(use-package company
+  :config
+  (setq company-minimum-prefix-length 2)
+  (setq company-idle-delay 0.25)
+  (define-key company-active-map (kbd "C-j") 'company-select-next)
+  (define-key company-active-map (kbd "C-k") 'company-select-previous)
+  (global-company-mode))
+
 (use-package pyenv-mode
   :config
   (pyenv-mode))
@@ -82,129 +248,38 @@
   (venv-initialize-interactive-shells)
   (venv-initialize-eshell))
 
-(use-package nose
-  :config
-  (defvar nose-use-verbose nil))
-
 (use-package anaconda-mode
   :config
   (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 
-(use-package company-anaconda
-  :config
-  (add-to-list 'company-backends 'company-anaconda))
-
-(use-package hydra
-  :config
-  (setq hydra-key-doc-function #'(lambda (key key-width doc doc-width)
-				   (format (format "%%%ds → %%%ds" key-width (- -1 doc-width)) key doc)))
-  (defhydra hydra-buffer (:exit t)
-    "Buffer"
-    ("b" helm-mini "helm")
-    ("d" evil-delete-buffer "delete"))
-  (defhydra hydra-help-describe (:exit t)
-    "Describe"
-    ("f" describe-function "function")
-    ("k" describe-key "key")
-    ("v" describe-variable "variable"))
-  (defhydra hydra-help (:exit t)
-    "Help"
-    ("d" hydra-help-describe/body "describe"))
-  (defhydra hydra-file (:exit t)
-    "File"
-    ("f" helm-find-files "find"))
-  (defhydra hydra-git (:exit t)
-    "Git"
-    ("d" magit-diff "diff")
-    ("s" magit-status "status"))
-  (defhydra hydra-jump (:exit t)
-    "Jump"
-    ("c" avy-goto-char "to char")
-    ("l" avy-goto-line "to line")
-    ("w" avy-goto-word-1 "to word"))
-  (defhydra hydra-project (:exit t)
-    "In project"
-    ("/" helm-projectile-ag "search")
-    ("f" helm-projectile-find-file "find file"))
-  (defhydra hydra-window (:exit t)
-    "Window"
-    ("m" delete-other-windows "maximize")
-    ("-" evil-window-split "split horizontally")
-    ("/" evil-window-vsplit "split vertically")
-    ("h" evil-window-left "window left")
-    ("j" evil-window-down "window down")
-    ("k" evil-window-up "window up")
-    ("l" evil-window-right "window right")
-    ("d" delete-window "delete"))
-  (defhydra hydra-semantic (:exit t)
-    "Semantic"
-    ("j" helm-semantic "jump"))
-
-  ;; Mode-specific Hydras
-
-  ;; Emacs lisp
-  (defhydra hydra-lisp-mode (:exit t)
-    "Lisp"
-    ("b" eval-buffer "evaluate buffer"))
-
-  ;; Python
-  (defhydra hydra-python-test (:exit t)
-    "Test"
-    ("m" nosetests-module "module")
-    ("t" nosetests-one "current test"))
-  (defhydra hydra-python-mode (:exit t)
-    "Python"
-    ("d" anaconda-mode-show-doc "show documentation")
-    ("g" anaconda-mode-find-definitions "go to definition")
-    ("t" hydra-python-test/body "test"))
-  )
-
-(use-package general
-  :config
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "SPC" '(helm-M-x :which-key "Execute command")
-   "'" '(eshell :which-key "Eshell")
-   "b" '(hydra-buffer/body :which-key "Buffer")
-   "f" '(hydra-file/body :which-key "File")
-   "g" '(hydra-git/body :which-key "Git")
-   "h" '(hydra-help/body :which-key "Help")
-   "j" '(hydra-jump/body :which-key "Jump")
-   "p" '(hydra-project/body :which-key "Project")
-   "s" '(hydra-semantic/body :which-key "Semantic")
-   "w" '(hydra-window/body :which-key "Window")
-   "W" '(venv-workon :which-key "Choose virtualenv")
-   )
-
-  ;; Emacs lisp mode bindings
   (general-define-key
    :states '(normal)
-   :keymaps 'emacs-lisp-mode-map
-   :prefix "SPC"
-   "m" '(hydra-lisp-mode/body :which-key "Lisp-Mode"))
+   :keymaps 'anaconda-mode-map
+   :prefix ","
+    "d" '(anaconda-mode-show-doc :wk "show documentation")
+    "g" '(anaconda-mode-find-definitions :wk "go to definition"))
 
-  ;; Python mode bindings
-  (general-define-key
-   :states '(normal)
-   :keymaps 'python-mode-map
-   :prefix "SPC"
-   "m" '(hydra-python-mode/body :which-key "Python-Mode"))
+  (use-package company-anaconda
+    :config
+    (add-to-list 'company-backends 'company-anaconda))
+
+  (use-package nose
+    :config
+    (defvar nose-use-verbose nil)
+    (general-define-key
+     :states '(normal)
+     :keymaps 'anaconda-mode-map
+     :prefix ","
+     "t" '(nil :wk "Test")
+     "tm" '(nosetests-module :wk "buffer")
+     "tt" '(nosetests-one :wk "current")))
   )
 
 (use-package which-key
   :config
+  (setq which-key-idle-delay 0.125)
   (which-key-mode))
-
-(use-package company
-  :config
-  (setq company-minimum-prefix-length 2)
-  (setq company-idle-delay 0.25)
-  (define-key company-active-map (kbd "C-j") 'company-select-next)
-  (define-key company-active-map (kbd "C-k") 'company-select-previous)
-  (global-company-mode))
 
 (defun protect-eshell-prompt ()
   "Protect Eshell's prompt like Comint's prompts.
