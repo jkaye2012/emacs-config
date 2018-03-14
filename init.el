@@ -19,6 +19,8 @@
 (setq-default recent-save-file "~/.emacs.d/recentf")
 (semantic-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(tool-bar-mode -1)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun Fuco1/lisp-indent-function (indent-point state)
   "This function is the normal value of the variable `lisp-indent-function'.
@@ -108,6 +110,10 @@ Lisp function does not specify a special indentation."
   (define-key evil-motion-state-map (kbd ",") nil)
   (evil-mode 1))
 
+(use-package evil-matchit
+  :config
+  (add-hook 'python-mode-hook 'evil-matchit-mode))
+
 (use-package hydra
   :config
   (defhydra hydra-window-select ()
@@ -116,7 +122,13 @@ Lisp function does not specify a special indentation."
     ("h" evil-window-left "left")
     ("j" evil-window-down "down")
     ("k" evil-window-up "up")
-    ("l" evil-window-right "right")))
+    ("l" evil-window-right "right"))
+
+  (defhydra hydra-sexpr ()
+    "Sexpr"
+    ("s" sp-forward-slurp-sexp "slurp forward"))
+
+  )
 
 (use-package general
   :config
@@ -148,6 +160,7 @@ Lisp function does not specify a special indentation."
    "ff" '(helm-find-files :wk "find")
 
    "h"  '(nil :wk "Help")
+   "ha" '(helm-apropos :wk "apropos")
    "hd" '(nil :wk "Describe")
    "hdv" '(describe-variable :wk "variable")
    "hdf" '(describe-function :wk "function")
@@ -175,7 +188,8 @@ Lisp function does not specify a special indentation."
    :keymaps 'emacs-lisp-mode-map
    :prefix ","
    "e" '(nil :wk "Evaluate")
-   "eb" '(eval-buffer :wk "buffer")))
+   "eb" '(eval-buffer :wk "buffer")
+   "ee" '(eval-defun :wk "defun")))
 
 (use-package projectile)
 
@@ -187,6 +201,7 @@ Lisp function does not specify a special indentation."
 	      ("C-k" . helm-previous-line))
   :config
   (setq helm-ff-file-name-history-use-recentf t)
+  (setq helm-mode-fuzzy-match t)
 
   (use-package helm-flx
     :config
@@ -257,7 +272,14 @@ Lisp function does not specify a special indentation."
   :config
   (require 'smartparens-config)
   (smartparens-global-mode)
-  (show-smartparens-global-mode))
+  (show-smartparens-global-mode)
+
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "k" '(hydra-sexpr/body :wk "Sexpr"))
+  )
 
 (use-package company
   :config
@@ -282,7 +304,18 @@ Lisp function does not specify a special indentation."
   (venv-initialize-interactive-shells)
   (venv-initialize-eshell))
 
+(defun my/python-shell ()
+  (interactive)
+  (unless (python-shell-get-process)
+    (run-python))
+  (python-shell-switch-to-shell))
+
 (use-package anaconda-mode
+  :bind (:map anaconda-mode-map
+	 ("RET" . newline-and-indent)
+	 :map inferior-python-mode-map
+	 ("C-j" . comint-next-input)
+	 ("C-k" . comint-previous-input))
   :config
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
@@ -292,7 +325,9 @@ Lisp function does not specify a special indentation."
    :keymaps 'anaconda-mode-map
    :prefix ","
     "d" '(anaconda-mode-show-doc :wk "show documentation")
-    "g" '(anaconda-mode-find-definitions :wk "go to definition"))
+    "g" '(anaconda-mode-find-definitions :wk "go to definition")
+    "i" '(my/python-shell :wk "interactive shell")
+    )
 
   (use-package company-anaconda
     :config
@@ -353,7 +388,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
+    (evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
