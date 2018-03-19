@@ -11,6 +11,12 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(defun my/package-install-refresh-contents (&rest args)
+  (package-refresh-contents)
+  (advice-remove 'package-install 'my/package-install-refresh-contents))
+
+(advice-add 'package-install :before 'my/package-install-refresh-contents)
+
 ;; Emacs-wide defaults
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
 (setq desktop-auto-save-timeout 300)
@@ -102,6 +108,7 @@ Lisp function does not specify a special indentation."
 
 (use-package ample-theme)
 
+(setq evil-want-C-i-jump nil)
 (use-package evil
   :config
   (setq evil-disable-insert-state-bindings t)
@@ -377,6 +384,15 @@ is achieved by adding the relevant text properties."
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
 
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -388,7 +404,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
+    (evil-org evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
