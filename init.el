@@ -11,22 +11,17 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(defun my/package-install-refresh-contents (&rest args)
-  (package-refresh-contents)
-  (advice-remove 'package-install 'my/package-install-refresh-contents))
-
-(advice-add 'package-install :before 'my/package-install-refresh-contents)
-
 ;; Emacs-wide defaults
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
 (setq desktop-auto-save-timeout 300)
 (desktop-save-mode t)
 (recentf-mode t)
 (setq-default recent-save-file "~/.emacs.d/recentf")
-(semantic-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (tool-bar-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(font-lock-add-keywords 'prog-mode
+  '(("TODO" . font-lock-warning-face)))
 
 (defun Fuco1/lisp-indent-function (indent-point state)
   "This function is the normal value of the variable `lisp-indent-function'.
@@ -108,7 +103,6 @@ Lisp function does not specify a special indentation."
 
 (use-package ample-theme)
 
-(setq evil-want-C-i-jump nil)
 (use-package evil
   :config
   (setq evil-disable-insert-state-bindings t)
@@ -116,6 +110,10 @@ Lisp function does not specify a special indentation."
   (define-key evil-normal-state-map (kbd "<tab>") 'evil-indent-line)
   (define-key evil-motion-state-map (kbd ",") nil)
   (evil-mode 1))
+
+(use-package evil-visualstar
+  :config
+  (global-evil-visualstar-mode))
 
 (use-package evil-matchit
   :config
@@ -133,7 +131,8 @@ Lisp function does not specify a special indentation."
 
   (defhydra hydra-sexpr ()
     "Sexpr"
-    ("s" sp-forward-slurp-sexp "slurp forward"))
+    ("s" sp-forward-slurp-sexp "slurp forward")
+    ("W" sp-unwrap-sexp "unwrap"))
 
   )
 
@@ -272,8 +271,8 @@ Lisp function does not specify a special indentation."
    :non-normal-prefix "M-SPC"
    "e" '(nil :wk "Errors")
    "el" '(flycheck-list-errors :wk "list")
-   "ep" '(flycheck-next-error :wk "previous"))
-   "en" '(flycheck-previous-error :wk "next"))
+   "ep" '(flycheck-previous-error :wk "previous")
+   "en" '(flycheck-next-error :wk "next")))
 
 (use-package smartparens
   :config
@@ -326,6 +325,7 @@ Lisp function does not specify a special indentation."
   :config
   (add-hook 'python-mode-hook 'anaconda-mode)
   (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  (add-hook 'anaconda-mode-hook 'semantic-mode)
 
   (general-define-key
    :states '(normal)
@@ -384,14 +384,24 @@ is achieved by adding the relevant text properties."
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
 
-(use-package evil-org
-  :ensure t
-  :after org
+(use-package rtags
   :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme))))
+  (setq rtags-path "~/rtags/bin")
+  (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+  (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+  (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
+  (setq rtags-autostart-diagnostics t)
+  (setq rtags-completions-enabled t)
+
+  (use-package company-rtags
+    :config
+    (setq rtags-display-result-backend 'helm))
+
+  (use-package helm-rtags
+    :config
+    (setq rtags-display-result-backend 'helm))
+
+  (use-package flycheck-rtags))
 
 (use-package rust-mode
   :config
@@ -412,7 +422,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (racer rust-mode evil-org evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
+    (rust-mode evil-visualstar helm-rtags flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
