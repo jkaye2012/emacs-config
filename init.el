@@ -384,24 +384,33 @@ is achieved by adding the relevant text properties."
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
 
-(use-package rtags
-  :config
-  (setq rtags-path "~/rtags/bin")
-  (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-  (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
-  (add-hook 'objc-mode-hook 'rtags-start-process-unless-running)
-  (setq rtags-autostart-diagnostics t)
-  (setq rtags-completions-enabled t)
+;; (use-package rtags
+;;   :config
+;;   (setq rtags-path "~/rtags/bin")
+;;   (setq rtags-completions-enabled t)
+;;   (add-hook 'c++-mode-hook '(lambda () (semantic-mode nil)))
 
-  (use-package company-rtags
-    :config
-    (setq rtags-display-result-backend 'helm))
+;;   (use-package company-rtags
+;;     :config
+;;     (setq rtags-display-result-backend 'helm))
 
-  (use-package helm-rtags
-    :config
-    (setq rtags-display-result-backend 'helm))
+;;   (use-package helm-rtags
+;;     :config
+;;     (setq rtags-display-result-backend 'helm))
 
-  (use-package flycheck-rtags))
+;;   (use-package flycheck-rtags))
+
+(use-package cmake-mode)
+
+;; (use-package cmake-ide
+;;   :config
+;;   (setq cmake-ide-rdm-executable "~/rtags/bin/rdm")
+;;   (setq cmake-ide-rc-executable "~/rtags/bin/rc")
+;;   (setq cmake-ide-flags-c++ '("-I/usr/include/c++/4.2.1"))
+;;   (use-package rtags)
+;;   (require 'rtags)
+;;   (cmake-ide-setup)
+;;   )
 
 (use-package rust-mode
   :config
@@ -422,7 +431,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (rust-mode evil-visualstar helm-rtags flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
+    (racer cmake-mode rust-mode evil-visualstar helm-rtags flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
