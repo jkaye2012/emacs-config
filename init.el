@@ -13,8 +13,6 @@
 
 ;; Emacs-wide defaults
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
-(setq desktop-auto-save-timeout 300)
-(desktop-save-mode t)
 (recentf-mode t)
 (setq-default recent-save-file "~/.emacs.d/recentf")
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -419,6 +417,44 @@ is achieved by adding the relevant text properties."
     (add-hook 'rust-mode-hook 'racer-mode)
     (add-hook 'racer-mode-hook 'eldoc-mode)
     (add-hook 'racer-mode-hook 'company-mode)))
+
+(define-generic-mode 'ebnf-mode
+  '(("(*" . "*)"))
+  '("=")
+  '(("^[^ \t\n][^=]+" . font-lock-variable-name-face)
+    ("['\"].*?['\"]" . font-lock-string-face)
+    ("\\?.*\\?" . font-lock-negation-char-face)
+    ("\\[\\|\\]\\|{\\|}\\|(\\|)\\||\\|,\\|;" . font-lock-type-face)
+    ("[^ \t\n]" . font-lock-function-name-face))
+  '("\\.ebnf\\'")
+  `(,(lambda () (setq mode-name "EBNF")))
+  "Major mode for EBNF metasyntax text highlighting.")
+
+(provide 'ebnf-mode)
+
+(use-package cmake-mode)
+
+(use-package irony
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (add-hook 'c++-mode-hook #'(lambda () (flymake-mode -1)))
+
+  (use-package flycheck-irony
+    :config
+    (add-hook 'irony-mode-hook #'flycheck-irony-setup)
+    (add-hook 'irony-mode-hook #'flycheck-mode))
+
+  (use-package company-irony-c-headers
+    :config
+    (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
+  )
+
+(use-package cmake-ide
+  :config
+  (cmake-ide-setup))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
