@@ -303,6 +303,9 @@ Lisp function does not specify a special indentation."
   (pyenv-mode))
 
 (use-package virtualenvwrapper
+  :init
+  (add-hook 'eshell-mode-hook 'venv-initialize-eshell)
+
   :config
   (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
   (venv-initialize-interactive-shells)
@@ -311,6 +314,9 @@ Lisp function does not specify a special indentation."
 (defun my/python-shell ()
   (interactive)
   (unless (python-shell-get-process)
+    (let ((git (magit-toplevel)))
+      (when git
+	(setenv "PYTHONPATH" git)))
     (run-python))
   (python-shell-switch-to-shell))
 
