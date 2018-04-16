@@ -315,16 +315,17 @@ Lisp function does not specify a special indentation."
   (python-shell-switch-to-shell))
 
 (use-package anaconda-mode
+  :init
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+
   :bind (:map anaconda-mode-map
 	 ("RET" . newline-and-indent)
 	 :map inferior-python-mode-map
 	 ("C-j" . comint-next-input)
 	 ("C-k" . comint-previous-input))
-  :config
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  (add-hook 'anaconda-mode-hook 'semantic-mode)
 
+  :config
   (general-define-key
    :states '(normal)
    :keymaps 'anaconda-mode-map
@@ -381,34 +382,6 @@ is achieved by adding the relevant text properties."
   (add-hook 'eshell-mode-hook 'my/setup-eshell-keys)
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
-
-;; (use-package rtags
-;;   :config
-;;   (setq rtags-path "~/rtags/bin")
-;;   (setq rtags-completions-enabled t)
-;;   (add-hook 'c++-mode-hook '(lambda () (semantic-mode nil)))
-
-;;   (use-package company-rtags
-;;     :config
-;;     (setq rtags-display-result-backend 'helm))
-
-;;   (use-package helm-rtags
-;;     :config
-;;     (setq rtags-display-result-backend 'helm))
-
-;;   (use-package flycheck-rtags))
-
-(use-package cmake-mode)
-
-;; (use-package cmake-ide
-;;   :config
-;;   (setq cmake-ide-rdm-executable "~/rtags/bin/rdm")
-;;   (setq cmake-ide-rc-executable "~/rtags/bin/rc")
-;;   (setq cmake-ide-flags-c++ '("-I/usr/include/c++/4.2.1"))
-;;   (use-package rtags)
-;;   (require 'rtags)
-;;   (cmake-ide-setup)
-;;   )
 
 (use-package rust-mode
   :config
