@@ -20,6 +20,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (font-lock-add-keywords 'prog-mode
   '(("TODO" . font-lock-warning-face)))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
 (defun Fuco1/lisp-indent-function (indent-point state)
   "This function is the normal value of the variable `lisp-indent-function'.
@@ -117,6 +118,8 @@ Lisp function does not specify a special indentation."
   :config
   (add-hook 'python-mode-hook 'evil-matchit-mode))
 
+(use-package flx)
+
 (use-package counsel
   :bind (:map ivy-minibuffer-map
 	 ("C-u" . ivy-scroll-down-command)
@@ -132,6 +135,9 @@ Lisp function does not specify a special indentation."
 	ivy-count-format "%d/%d "
 	ivy-height 20)
   (ivy-mode 1)
+  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+				(t      . ivy--regex-fuzzy)))
+
   (use-package counsel-projectile
     :config
     (general-define-key
@@ -443,6 +449,18 @@ is achieved by adding the relevant text properties."
   :config
   (cmake-ide-setup))
 
+(use-package multi-term
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "t" '(nil :wk "Terminal")
+   "tt" '(multi-term :wk "new")
+   "tn" '(multi-term-next :wk "next")
+   "tp" '(multi-term-prev :wk "next")
+   ))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -454,7 +472,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package))))
+    (multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
