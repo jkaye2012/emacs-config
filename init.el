@@ -117,6 +117,32 @@ Lisp function does not specify a special indentation."
   :config
   (add-hook 'python-mode-hook 'evil-matchit-mode))
 
+(use-package counsel
+  :bind (:map ivy-minibuffer-map
+	 ("C-u" . ivy-scroll-down-command)
+	 ("C-d" . ivy-scroll-up-command)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+
+	 :map counsel-find-file-map
+	 ("C-h" . counsel-up-directory))
+
+  :config
+  (setq ivy-use-virtual-buffers t
+	ivy-count-format "%d/%d "
+	ivy-height 20)
+  (ivy-mode 1)
+  (use-package counsel-projectile
+    :config
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+      "p" '(nil :wk "In project")
+      "pf" '(counsel-projectile-find-file :wk "find file")
+      "p/" '(counsel-projectile-ag :wk "search")))
+  )
+
 (use-package hydra
   :config
   (defhydra hydra-window-select ()
@@ -133,6 +159,12 @@ Lisp function does not specify a special indentation."
     ("W" sp-unwrap-sexp "unwrap"))
 
   )
+
+(defun my/switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 (use-package general
   :config
@@ -152,26 +184,29 @@ Lisp function does not specify a special indentation."
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
-   "SPC" '(helm-M-x :wk "Execute command")
+   "SPC" '(counsel-M-x :wk "Execute command")
    "'" '(eshell :wk "Eshell")
    "\\" '(my/find-config :wk "Edit config")
+   "/" '(swiper :wk "Interactive search")
 
    "b" '(nil :wk "Buffer")
-   "bb" '(helm-mini :wk "list")
+   "bb" '(ivy-switch-buffer :wk "list")
    "bd" '(evil-delete-buffer :wk "delete")
+   "bp" '(my/switch-to-previous-buffer :wk "previous")
+   "br" '(counsel-recentf :wk "list")
 
    "f" '(nil :wk "File")
-   "ff" '(helm-find-files :wk "find")
+   "ff" '(counsel-find-file :wk "find")
 
    "h"  '(nil :wk "Help")
-   "ha" '(helm-apropos :wk "apropos")
+   "ha" '(counsel-apropos :wk "apropos")
    "hd" '(nil :wk "Describe")
-   "hdv" '(describe-variable :wk "variable")
-   "hdf" '(describe-function :wk "function")
+   "hdv" '(counsel-describe-variable :wk "variable")
+   "hdf" '(counsel-describe-function :wk "function")
    "hdk" '(describe-key :wk "key")
 
    "s" '(nil :wk "Semantic")
-   "sj" '(helm-semantic :wk "jump")
+   "sj" '(counsel-semantic :wk "jump")
 
    "w" '(nil :wk "Window")
    "wh" '(evil-window-left :wk "left")
@@ -196,33 +231,6 @@ Lisp function does not specify a special indentation."
    "ee" '(eval-defun :wk "defun")))
 
 (use-package projectile)
-
-(use-package helm
-  :bind (:map helm-map
-	      ("<tab>" . helm-execute-persistent-action)
-	      ("C-h" . helm-find-files-up-one-level)
-	      ("C-j" . helm-next-line)
-	      ("C-k" . helm-previous-line))
-  :config
-  (setq helm-ff-file-name-history-use-recentf t)
-  (setq helm-mode-fuzzy-match t)
-
-  (use-package helm-flx
-    :config
-    (helm-flx-mode t))
-
-  (use-package helm-projectile
-    :config
-    (general-define-key
-     :states '(normal visual insert emacs)
-     :prefix "SPC"
-     :non-normal-prefix "M-SPC"
-     "p" '(nil :wk "In project")
-     "pf" '(helm-projectile-find-file :wk "find file")
-     "p/" '(helm-projectile-ag :wk "search")))
-
-  (use-package helm-ag)
-  )
 
 (use-package avy
   :config
@@ -446,7 +454,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (racer cmake-mode rust-mode evil-visualstar helm-rtags flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet helm-ag helm evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme helm-projectile flycheck which-key smartparens use-package))))
+    (counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
