@@ -103,6 +103,8 @@ Lisp function does not specify a special indentation."
 (use-package ample-theme)
 
 (use-package evil
+  :init
+  (setq-default evil-want-C-i-jump nil)
   :config
   (setq evil-disable-insert-state-bindings t)
   (global-set-key (kbd "C-u") 'evil-scroll-up)
@@ -449,7 +451,17 @@ is achieved by adding the relevant text properties."
 
 (use-package cmake-ide
   :config
-  (cmake-ide-setup))
+  (cmake-ide-setup)
+  (general-define-key
+   :states '(normal)
+   :keymaps '(c++-mode-map cmake-mode-map)
+   :prefix ","
+    "c" '(nil :wk "Build")
+    "cc" '(cmake-ide-compile :wk "compile")
+    "cm" '(cmake-ide-run-cmake :wk "cmake")
+    "h" '(ff-find-other-file :wk "jump between header/source")
+    )
+  )
 
 (use-package multi-term
   :config
@@ -471,6 +483,11 @@ is achieved by adding the relevant text properties."
   (add-hook 'evil-org-mode-hook
             (lambda ()
               (evil-org-set-key-theme)))
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :keymaps '(org-mode-map)
+   "<tab>" '(org-cycle)
+   )
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
@@ -486,6 +503,20 @@ is achieved by adding the relevant text properties."
  '(package-selected-packages
    (quote
     (evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+ '(safe-local-variable-values
+   (quote
+    ((eval setq cmake-ide-build-dir
+	   (concat
+	    (projectile-project-root)
+	    "build"))
+     (eval setq cmake-ide-build-dir
+	   (append
+	    (projectile-project-root)
+	    "build"))
+     (eval setq cmake-ide-build-dir
+	   (file-truename "./build"))
+     (setq cmake-ide-build-dir
+	   (file-truename "./build")))))
  '(term-unbind-key-list (quote ("C-z" "C-x" "C-c" "C-h" "C-y" "<ESC>"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
