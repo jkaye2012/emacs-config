@@ -240,7 +240,9 @@ Repeated invocations toggle between the two most recently open buffers."
    "eb" '(eval-buffer :wk "buffer")
    "ee" '(eval-defun :wk "defun")))
 
-(use-package projectile)
+(use-package projectile
+  :config
+  (projectile-mode t))
 
 (use-package avy
   :config
@@ -267,6 +269,7 @@ Repeated invocations toggle between the two most recently open buffers."
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "g" '(nil :wk "Git")
+   "gb" '(magit-blame :wk "blame")
    "gs" '(magit-status :wk "status")
    "gd" '(magit-diff :wk "diff")))
 
