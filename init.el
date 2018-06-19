@@ -150,6 +150,7 @@ Lisp function does not specify a special indentation."
      :non-normal-prefix "M-SPC"
       "p" '(nil :wk "In project")
       "pf" '(counsel-projectile-find-file :wk "find file")
+      "pr" '(projectile-replace :wk "replace")
       "p/" '(counsel-projectile-ag :wk "search")))
   )
 
