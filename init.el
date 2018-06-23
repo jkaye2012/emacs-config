@@ -491,6 +491,12 @@ is achieved by adding the relevant text properties."
    :states '(normal visual insert emacs)
    :keymaps '(org-mode-map)
    "<tab>" '(org-cycle)
+  )
+  (general-define-key
+   :states '(normal)
+   :keymaps '(org-mode-map)
+   :prefix ","
+    "g" '(org-edit-special :wk "edit linked file")
    )
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -512,15 +518,7 @@ is achieved by adding the relevant text properties."
     ((eval setq cmake-ide-build-dir
 	   (concat
 	    (projectile-project-root)
-	    "build"))
-     (eval setq cmake-ide-build-dir
-	   (append
-	    (projectile-project-root)
-	    "build"))
-     (eval setq cmake-ide-build-dir
-	   (file-truename "./build"))
-     (setq cmake-ide-build-dir
-	   (file-truename "./build")))))
+	    "build")))))
  '(term-unbind-key-list (quote ("C-z" "C-x" "C-c" "C-h" "C-y" "<ESC>"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
