@@ -21,6 +21,7 @@
 (font-lock-add-keywords 'prog-mode
   '(("TODO" . font-lock-warning-face)))
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq-default indent-tabs-mode nil)
 
 (defun Fuco1/lisp-indent-function (indent-point state)
   "This function is the normal value of the variable `lisp-indent-function'.
@@ -130,6 +131,7 @@ Lisp function does not specify a special indentation."
 	 ("C-d" . ivy-scroll-up-command)
 	 ("C-j" . ivy-next-line)
 	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-immediate-done)
 
 	 :map counsel-find-file-map
 	 ("C-h" . counsel-up-directory))
