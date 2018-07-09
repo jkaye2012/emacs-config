@@ -22,6 +22,7 @@
   '(("TODO" . font-lock-warning-face)))
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (setq-default indent-tabs-mode nil)
+(menu-bar-mode -1)
 
 (defun Fuco1/lisp-indent-function (indent-point state)
   "This function is the normal value of the variable `lisp-indent-function'.
