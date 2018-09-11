@@ -576,7 +576,6 @@ is achieved by adding the relevant text properties."
 
 (use-package intero
   :config
-  (add-hook 'intero-mode-hook 'my/hask-completion)
   (intero-global-mode 1))
 
 (use-package multi-term
