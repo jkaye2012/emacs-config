@@ -417,6 +417,12 @@ is achieved by adding the relevant text properties."
     (local-set-key (kbd "C-j") 'eshell-next-input)
     (local-set-key (kbd "C-k") 'eshell-previous-input))
 
+  (defun eshell/clear ()
+    "Clear the eshell buffer."
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)))
+
   (add-hook 'eshell-mode-hook 'my/setup-eshell-keys)
   (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt)
   )
