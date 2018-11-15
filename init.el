@@ -110,6 +110,7 @@ Lisp function does not specify a special indentation."
 (use-package evil
   :init
   (setq-default evil-want-C-i-jump nil)
+  (setq evil-want-keybinding nil)
   :config
   (setq evil-disable-insert-state-bindings t)
   (global-set-key (kbd "C-u") 'evil-scroll-up)
@@ -335,6 +336,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq company-idle-delay 0.25)
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
+  (general-define-key
+   :keymaps '(python-mode-map)
+   :states '(insert)
+    "<backtab>" 'company-complete
+   )
   (global-company-mode)
 
   (use-package company-flx
@@ -608,10 +614,20 @@ is achieved by adding the relevant text properties."
    "tp" '(multi-term-prev :wk "next")
    ))
 
+(use-package evil-collection
+  :ensure t
+  :after evil
+  :config
+  (evil-collection-init))
+
 (use-package evil-org
   :ensure t
   :after org
   :config
+  (setq org-todo-keywords '((sequence "TODO(t!)" "IN PROGRESS(i!)" "DONE(d@)")))
+  (setq org-log-into-drawer t)
+  (setq org-log-reschedule 'time)
+  (setq org-agenda-skip-scheduled-if-done t)
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
@@ -624,8 +640,23 @@ is achieved by adding the relevant text properties."
   (general-define-key
    :states '(normal)
    :keymaps '(org-mode-map)
+    "t" 'org-shiftright
+   )
+  (general-define-key
+   :states '(normal)
+   :keymaps '(org-mode-map)
    :prefix ","
+    "a" '(org-agenda :wk "agenda")
     "g" '(org-edit-special :wk "edit linked file")
+    "i" '(org-insert-heading-after-current :wk "insert heading")
+    "n" '(org-next-visible-heading :wk "next heading")
+    "p" '(org-previous-visible-heading :wk "previous heading")
+    "t" '(nil :wk "Todo")
+    "td" '(org-deadline :wk "deadline")
+    "ts" '(org-schedule :wk "schedule")
+    "tt" '(org-shiftright :wk "cycle")
+    "tT" '(org-shiftleft :wk "cycle backwards")
+    "tg" '(org-todo :wk "goto state")
    )
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -639,9 +670,10 @@ is achieved by adding the relevant text properties."
  '(custom-safe-themes
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
+ '(org-agenda-files (quote ("~/Dropbox/Org/todo.org")))
  '(package-selected-packages
    (quote
-    (company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+    (evil-collection company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir
