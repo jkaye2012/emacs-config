@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Haddock documentation comment
+# key: doc
+# --
+-- |$0

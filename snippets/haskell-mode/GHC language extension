@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ghc-language-extension
+# key: gext
+# --
+{-# LANGUAGE $0 #-}
