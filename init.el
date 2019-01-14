@@ -307,6 +307,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook #'(lambda () (setq flycheck-checker 'javascript-jshint)))
   (add-hook 'js2-mode-hook 'flycheck-mode)
+  (add-hook 'c++-mode-hook 'flycheck-mode)
 
   (general-define-key
    :states '(normal visual insert emacs)
@@ -555,37 +556,32 @@ is achieved by adding the relevant text properties."
 
 (use-package cmake-mode)
 
-(use-package irony
+(use-package rtags
   :config
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  (add-hook 'c++-mode-hook #'(lambda () (flymake-mode -1)))
+  (use-package company-rtags)
+  (use-package flycheck-rtags)
+  (setq rtags-completions-enabled t)
+  (push 'company-rtags company-backends)
+  (setq rtags-autostart-diagnostics t)
+  (defun my/flycheck-rtags-setup ()
+    (flycheck-select-checker 'rtags)
+    (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+    (setq-local flycheck-check-syntax-automatically nil))
+  (add-hook 'c-mode-hook #'my/flycheck-rtags-setup)
+  (add-hook 'c++-mode-hook #'my/flycheck-rtags-setup)
 
-  (use-package flycheck-irony
-    :config
-    (add-hook 'irony-mode-hook #'flycheck-irony-setup)
-    (add-hook 'irony-mode-hook #'flycheck-mode))
-
-  (use-package company-irony-c-headers
-    :config
-    (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
-  )
-
-(use-package cmake-ide
-  :config
-  (cmake-ide-setup)
   (general-define-key
    :states '(normal)
    :keymaps '(c++-mode-map cmake-mode-map)
    :prefix ","
-    "c" '(nil :wk "Build")
-    "cc" '(cmake-ide-compile :wk "compile")
-    "cm" '(cmake-ide-run-cmake :wk "cmake")
     "h" '(ff-find-other-file :wk "jump between header/source")
     )
   )
+
+(defun my/c++-indentation()
+  (c-set-offset 'access-label [1])
+  (c-set-offset 'substatement-open 0))
+(add-hook 'c++-mode-hook 'my/c++-indentation)
 
 (defun my/hask-completion ()
   (setq-local company-minimum-prefix-length 3)
