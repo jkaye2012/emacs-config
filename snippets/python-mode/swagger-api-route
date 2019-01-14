@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: New API route (Swagger/Flask RESTplus)
+# key: route
+# --
+@NS.route('/${1:route/uri}')
+class ${2:RouteName}(Resource):
+    # pylint: disable=no-self-use,invalid-name
+    @NS.doc(description='${3:description}', responses=EndpointResponse.StandardResponse)
+    @API.marshal_with(${4:ReturnValueModel})
+    @bt_error_handler
+    def get(self):
+        pass$0
