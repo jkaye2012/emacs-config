@@ -556,27 +556,35 @@ is achieved by adding the relevant text properties."
 
 (use-package cmake-mode)
 
-(use-package rtags
+(use-package cquery
   :config
-  (use-package company-rtags)
-  (use-package flycheck-rtags)
-  (setq rtags-completions-enabled t)
-  (push 'company-rtags company-backends)
-  (setq rtags-autostart-diagnostics t)
-  (defun my/flycheck-rtags-setup ()
-    (flycheck-select-checker 'rtags)
-    (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-    (setq-local flycheck-check-syntax-automatically nil))
-  (add-hook 'c-mode-hook #'my/flycheck-rtags-setup)
-  (add-hook 'c++-mode-hook #'my/flycheck-rtags-setup)
+  (setq cquery-executable "/build/jkaye/cquery/build/cquery")
+  (setq cquery-project-roots '("/build/jkaye/Harbor/Laser"))
+  (setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
 
   (general-define-key
    :states '(normal)
-   :keymaps '(c++-mode-map cmake-mode-map)
+   :keymaps '(c++-mode-map)
    :prefix ","
-    "h" '(ff-find-other-file :wk "jump between header/source")
+    "g" '(xref-find-definitions :wk "find definition")
+    "h" '(projectile-find-other-file :wk "header/source jump")
+    "i" '(lsp-goto-implementation :wk "find implementation")
+    "p" '(nil :wk "Peek")
+    "pb" '(lsp-ui-peek-jump-backward :wk "backward")
+    "pf" '(lsp-ui-peek-jump-forward :wk "forward")
+    "ps" '(lsp-ui-peek-find-workspace-symbol :wk "symbol")
+    "r" '(xref-find-references :wk "find references")
     )
-  )
+
+  :init
+  (add-hook 'lsp-mode-hook '(lambda ()
+                              (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)))
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp))
+
+(use-package ivy-xref
+  :ensure t
+  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 (defun my/c++-indentation()
   (c-set-offset 'access-label [1])
@@ -724,7 +732,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+    (ivy-xref cquery euslisp-mode ccls company-lsp lsp-ui lsp-mode evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir

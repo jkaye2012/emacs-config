@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name: pimpl-cpp
+# key: pimplcpp
+# --
+
+using $1::$2;
+
+$2::$2()
+  : _impl{new $2::Impl()}
+{
+}
+
+$2::~$2()
+{
+  delete _impl;
+}
+
+
+$2::$2(const $2& other)
+  : _impl{new $2::Impl(*(other._impl))}
+{
+}
+
+$2& $2::operator=($2 other)
+{
+  std::swap(_impl, other._impl);
+  return *this;
+}
