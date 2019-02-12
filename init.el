@@ -291,7 +291,7 @@ Repeated invocations toggle between the two most recently open buffers."
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "g" '(nil :wk "Git")
-   "gb" '(magit-blame :wk "blame")
+   "gb" '(magit-blame-addition :wk "blame")
    "gs" '(magit-status :wk "status")
    "gd" '(magit-diff :wk "diff")))
 
@@ -307,7 +307,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook #'(lambda () (setq flycheck-checker 'javascript-jshint)))
   (add-hook 'js2-mode-hook 'flycheck-mode)
-  (add-hook 'c++-mode-hook 'flycheck-mode)
 
   (general-define-key
    :states '(normal visual insert emacs)
@@ -569,6 +568,9 @@ is achieved by adding the relevant text properties."
     "g" '(xref-find-definitions :wk "find definition")
     "h" '(projectile-find-other-file :wk "header/source jump")
     "i" '(lsp-goto-implementation :wk "find implementation")
+    "e" '(nil :wk "Error")
+    "en" '(flymake-goto-next-error :wk "next")
+    "ep" '(flymake-goto-prev-error :wk "previous")
     "p" '(nil :wk "Peek")
     "pb" '(lsp-ui-peek-jump-backward :wk "backward")
     "pf" '(lsp-ui-peek-jump-forward :wk "forward")
@@ -732,7 +734,7 @@ is achieved by adding the relevant text properties."
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" default)))
  '(package-selected-packages
    (quote
-    (ivy-xref cquery euslisp-mode ccls company-lsp lsp-ui lsp-mode evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+    (jinja2-mode ivy-xref cquery euslisp-mode ccls company-lsp lsp-ui lsp-mode evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir
