@@ -21,8 +21,11 @@ $2::$2(const $2& other)
 {
 }
 
-$2& $2::operator=($2 other)
+$2& $2::operator=(const $2& other)
 {
-  std::swap(_impl, other._impl);
+  _impl.reset(new Impl(*(other._impl)));
   return *this;
 }
+
+$2::$2($2&& other) noexcept = default;
+$2& $2::operator=($2&& other) noexcept = default;
