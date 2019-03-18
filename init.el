@@ -70,8 +70,7 @@
   (global-evil-visualstar-mode))
 
 (use-package evil-matchit
-  :config
-  (add-hook 'python-mode-hook 'evil-matchit-mode))
+  :hook (prog-mode . evil-matchit-mode))
 
 (use-package google-this
   :config
@@ -106,22 +105,23 @@
   :config
   (setq ivy-use-virtual-buffers t
 	ivy-count-format "%d/%d "
+        ivy-use-virtual-buffers t
 	ivy-height 20)
   (ivy-mode 1)
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				(t      . ivy--regex-fuzzy)))
+				(t      . ivy--regex-fuzzy))))
 
-  (use-package counsel-projectile
-    :config
-    (general-define-key
-     :states '(normal visual insert emacs)
-     :prefix "SPC"
-     :non-normal-prefix "M-SPC"
-      "p" '(nil :wk "In project")
-      "pf" '(counsel-projectile-find-file :wk "find file")
-      "pr" '(projectile-replace :wk "replace")
-      "p/" '(counsel-projectile-ag :wk "search")))
-  )
+(use-package counsel-projectile
+  :after (counsel)
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "p" '(nil :wk "In project")
+    "pf" '(counsel-projectile-find-file :wk "find file")
+    "pr" '(projectile-replace :wk "replace")
+    "p/" '(counsel-projectile-ag :wk "search")))
 
 (use-package hydra
   :config
@@ -188,6 +188,8 @@ Repeated invocations toggle between the two most recently open buffers."
    "hdv" '(counsel-describe-variable :wk "variable")
    "hdf" '(counsel-describe-function :wk "function")
    "hdk" '(describe-key :wk "key")
+
+   "i" '(counsel-imenu :wk "menu")
 
    "W" '(venv-workon :wk "Choose virtualenv")
    )

@@ -4,6 +4,7 @@
   :config
   (setq aw-keys '(?q ?w ?e ?r))
   (setq aw-ignore-current t)
+
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
