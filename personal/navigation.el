@@ -22,6 +22,13 @@
    "w-" '(evil-window-split :wk "split horizontally")
    ))
 
+(use-package evil-visualstar
+  :config
+  (global-evil-visualstar-mode))
+
+(use-package evil-matchit
+  :hook (prog-mode . evil-matchit-mode))
+
 (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
