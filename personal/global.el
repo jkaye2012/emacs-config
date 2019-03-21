@@ -20,6 +20,11 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+(use-package which-key
+  :config
+  (setq which-key-idle-delay 0.125)
+  (which-key-mode))
+
 (use-package general
   :config
   (general-evil-setup)
@@ -92,3 +97,23 @@ Repeated invocations toggle between the two most recently open buffers."
     ("n" tide-find-next-reference "next")
     ("p" tide-find-previous-reference "previous"))
   )
+
+(use-package counsel
+  :bind (:map ivy-minibuffer-map
+	 ("C-u" . ivy-scroll-down-command)
+	 ("C-d" . ivy-scroll-up-command)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-immediate-done)
+
+	 :map counsel-find-file-map
+	 ("C-h" . counsel-up-directory))
+
+  :config
+  (setq ivy-use-virtual-buffers t
+	ivy-count-format "%d/%d "
+        ivy-use-virtual-buffers t
+	ivy-height 20)
+  (ivy-mode 1)
+  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+				(t      . ivy--regex-fuzzy))))

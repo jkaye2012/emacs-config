@@ -38,3 +38,29 @@
    "mj" '(bookmark-jump :wk "jump")
    "ms" '(bookmark-set :wk "set")
    )
+
+(use-package projectile
+  :hook (after-init . projectile-mode))
+
+(use-package counsel-projectile
+  :after (counsel)
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "p" '(nil :wk "In project")
+    "pf" '(counsel-projectile-find-file :wk "find file")
+    "pr" '(projectile-replace :wk "replace")
+    "p/" '(counsel-projectile-ag :wk "search")))
+
+(use-package avy
+  :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "j"  '(nil :wk "Jump to")
+   "jc" '(avy-goto-char :wk "char")
+   "jw" '(avy-goto-word-1 :wk "word")
+   "jl" '(avy-goto-line :wk "line")))

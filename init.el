@@ -52,8 +52,10 @@
 (when (string= system-type "darwin")
   (load-user-file "osx.el"))
 
-(load-user-file "elisp.el")
 (load-user-file "navigation.el")
+(load-user-file "programming.el")
+(load-user-file "git.el")
+(load-user-file "elisp.el")
 
 (use-package google-this
   :config
@@ -73,77 +75,6 @@
 (use-package smex)
 
 (use-package jinja2-mode)
-
-(use-package counsel
-  :bind (:map ivy-minibuffer-map
-	 ("C-u" . ivy-scroll-down-command)
-	 ("C-d" . ivy-scroll-up-command)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-immediate-done)
-
-	 :map counsel-find-file-map
-	 ("C-h" . counsel-up-directory))
-
-  :config
-  (setq ivy-use-virtual-buffers t
-	ivy-count-format "%d/%d "
-        ivy-use-virtual-buffers t
-	ivy-height 20)
-  (ivy-mode 1)
-  (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
-				(t      . ivy--regex-fuzzy))))
-
-(use-package counsel-projectile
-  :after (counsel)
-  :config
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-    "p" '(nil :wk "In project")
-    "pf" '(counsel-projectile-find-file :wk "find file")
-    "pr" '(projectile-replace :wk "replace")
-    "p/" '(counsel-projectile-ag :wk "search")))
-
-(use-package projectile
-  :config
-  (projectile-mode t))
-
-(use-package avy
-  :config
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "j"  '(nil :wk "Jump to")
-   "jc" '(avy-goto-char :wk "char")
-   "jw" '(avy-goto-word-1 :wk "word")
-   "jl" '(avy-goto-line :wk "line")))
-
-(use-package yasnippet
-  :config
-  (yas-global-mode t)
-
-  (use-package yasnippet-snippets))
-
-
-(use-package magit
-  :config
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "g" '(nil :wk "Git")
-   "gb" '(magit-blame-addition :wk "blame")
-   "gs" '(magit-status :wk "status")
-   "gd" '(magit-diff :wk "diff")))
-
-(use-package evil-magit)
-
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'smartparens-mode-hook 'rainbow-delimiters-mode))
 
 (use-package flycheck
   :config
@@ -250,11 +181,6 @@
      "tm" '(nosetests-module :wk "buffer")
      "tt" '(nosetests-one :wk "current")))
   )
-
-(use-package which-key
-  :config
-  (setq which-key-idle-delay 0.125)
-  (which-key-mode))
 
 (defun protect-eshell-prompt ()
   "Protect Eshell's prompt like Comint's prompts.
@@ -584,7 +510,7 @@ is achieved by adding the relevant text properties."
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(package-selected-packages
    (quote
-    (doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+    (iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
     ((eval setq cmake-ide-build-dir
