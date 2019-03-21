@@ -21,3 +21,13 @@
    "w/" '(evil-window-vsplit :wk "split vertically")
    "w-" '(evil-window-split :wk "split horizontally")
    ))
+
+(general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+   "m" '(nil :wk "Bookmark")
+   "mc" '(counsel-bookmark :wk "counsel")
+   "mj" '(bookmark-jump :wk "jump")
+   "ms" '(bookmark-set :wk "set")
+   )
