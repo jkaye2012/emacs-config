@@ -1,7 +1,25 @@
-;; "Global" packages.
+;; "Global" configuration.
 ;; These are packages that many of my personal configurations will required.
 ;; By loading them before the personalized configs, I won't have to worry about
 ;; deferring everywhere.
+
+;; Emacs-wide defaults
+
+(setq backup-directory-alist '(("." . "~/.emacs-saves")))
+(recentf-mode t)
+(setf recentf-max-saved-items 50)
+(run-at-time nil (* 5 60) 'recentf-save-list)
+(setq-default recent-save-file "~/.emacs.d/recentf")
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(tool-bar-mode -1)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(font-lock-add-keywords 'prog-mode
+  '(("TODO" . font-lock-warning-face)))
+(setq-default indent-tabs-mode nil)
+(menu-bar-mode -1)
+(setq compilation-scroll-output t)
+
+;; Global packages
 
 (use-package evil
   :init
