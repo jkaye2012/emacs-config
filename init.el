@@ -53,44 +53,13 @@
   (load-user-file "osx.el"))
 
 (load-user-file "navigation.el")
+(load-user-file "utility.el")
 (load-user-file "programming.el")
 (load-user-file "git.el")
 (load-user-file "elisp.el")
-
-(use-package google-this
-  :config
-  (general-define-key
-     :states '(normal visual insert emacs)
-     :prefix "SPC"
-     :non-normal-prefix "M-SPC"
-      "s" '(nil :wk "Search")
-      "sg" '(google-this :wk "at point")
-      "ss" '(google-this-search :wk "string")
-      "sw" '(google-this-word :wk "word")
-      "sr" '(google-this-region :wk "region"))
-  )
-
-(use-package flx)
-
-(use-package smex)
+(load-user-file "python.el")
 
 (use-package jinja2-mode)
-
-(use-package flycheck
-  :config
-  (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (add-hook 'js2-mode-hook #'(lambda () (setq flycheck-checker 'javascript-jshint)))
-  (add-hook 'js2-mode-hook 'flycheck-mode)
-
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "e" '(nil :wk "Errors")
-   "el" '(flycheck-list-errors :wk "list")
-   "ep" '(flycheck-previous-error :wk "previous")
-   "en" '(flycheck-next-error :wk "next")))
 
 (use-package smartparens
   :config
@@ -122,65 +91,6 @@
     :config
     (setq company-flx-limit 100)
     (company-flx-mode t)))
-
-(use-package pyenv-mode
-  :config
-  (pyenv-mode))
-
-(use-package virtualenvwrapper
-  :init
-  (add-hook 'eshell-mode-hook 'venv-initialize-eshell)
-
-  :config
-  (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
-  (venv-initialize-interactive-shells)
-  (venv-initialize-eshell))
-
-(defun my/python-shell ()
-  (interactive)
-  (unless (python-shell-get-process)
-    (let ((git (magit-toplevel)))
-      (when git
-	(setenv "PYTHONPATH" git)))
-    (run-python))
-  (python-shell-switch-to-shell))
-
-(use-package anaconda-mode
-  :init
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-
-  :bind (:map anaconda-mode-map
-	 ("RET" . newline-and-indent)
-	 :map inferior-python-mode-map
-	 ("C-j" . comint-next-input)
-	 ("C-k" . comint-previous-input))
-
-  :config
-  (general-define-key
-   :states '(normal)
-   :keymaps 'anaconda-mode-map
-   :prefix ","
-    "d" '(anaconda-mode-show-doc :wk "show documentation")
-    "g" '(anaconda-mode-find-definitions :wk "go to definition")
-    "i" '(my/python-shell :wk "interactive shell")
-    )
-
-  (use-package company-anaconda
-    :config
-    (add-to-list 'company-backends 'company-anaconda))
-
-  (use-package nose
-    :config
-    (defvar nose-use-verbose nil)
-    (general-define-key
-     :states '(normal)
-     :keymaps 'anaconda-mode-map
-     :prefix ","
-     "t" '(nil :wk "Test")
-     "tm" '(nosetests-module :wk "buffer")
-     "tt" '(nosetests-one :wk "current")))
-  )
 
 (defun protect-eshell-prompt ()
   "Protect Eshell's prompt like Comint's prompts.
