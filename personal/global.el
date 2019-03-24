@@ -85,15 +85,7 @@ Repeated invocations toggle between the two most recently open buffers."
    "i" '(counsel-imenu :wk "menu")
 
    "W" '(venv-workon :wk "Choose virtualenv")
-   )
-
-  (general-define-key
-   :states '(normal)
-   :keymaps 'emacs-lisp-mode-map
-   :prefix ","
-   "e" '(nil :wk "Evaluate")
-   "eb" '(eval-buffer :wk "buffer")
-   "ee" '(eval-defun :wk "defun")))
+   ))
 
 (use-package hydra
   :config

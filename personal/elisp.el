@@ -77,3 +77,11 @@ Lisp function does not specify a special indentation."
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq-local lisp-indent-function #'Fuco1/lisp-indent-function)))
+
+(general-define-key
+   :states '(normal)
+   :keymaps 'emacs-lisp-mode-map
+   :prefix ","
+   "e" '(nil :wk "Evaluate")
+   "eb" '(eval-buffer :wk "buffer")
+   "ee" '(eval-defun :wk "defun"))

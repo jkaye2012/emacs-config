@@ -26,26 +26,26 @@
 (defun load-user-file (file)
   (interactive "f")
   "Load a file in current user's configuration directory"
-  (message "Loading user file %s" file)
-  (load-file (expand-file-name file user-init-dir)))
+  (message "Loading personal configuration: %s" file)
+  (load-file (expand-file-name (concat file ".el") user-init-dir)))
 
 ;; Personal configuration
 
 ;; Globals should always be loaded first!
-(load-user-file "global.el")
+(load-user-file "global")
 
 ;; OS-specific configuration
 (when (string= system-type "darwin")
-  (load-user-file "osx.el"))
+  (load-user-file "osx"))
 (when (string= operating-system-release "4.19.4-02480-gd44d301822f0")
-  (load-user-file "pixelbook.el"))
+  (load-user-file "pixelbook"))
 
-(load-user-file "navigation.el")
-(load-user-file "utility.el")
-(load-user-file "programming.el")
-(load-user-file "git.el")
-(load-user-file "elisp.el")
-(load-user-file "python.el")
+(load-user-file "navigation")
+(load-user-file "utility")
+(load-user-file "programming")
+(load-user-file "git")
+(load-user-file "elisp")
+(load-user-file "python")
 
 (use-package jinja2-mode)
 
@@ -398,7 +398,7 @@ is achieved by adding the relevant text properties."
   (evil-org-agenda-set-keys))
 
 ;; Load decorations at the end!
-(load-user-file "decoration.el")
+(load-user-file "decoration")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
