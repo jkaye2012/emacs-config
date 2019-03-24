@@ -10,7 +10,7 @@
 
 (when (string= system-type "darwin")
   (load-user-module "osx"))
-(when (string= operating-system-release "4.19.4-02480-gd44d301822f0") ; TODO: there should be a better way
+(when (string= system-name "penguin") ; TODO: there should be a better way
   (load-user-module "pixelbook"))
 
 ;;; Individual user modules
