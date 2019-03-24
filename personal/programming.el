@@ -23,7 +23,48 @@
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
-   "e" '(nil :wk "Errors")
-   "el" '(flycheck-list-errors :wk "list")
-   "ep" '(flycheck-previous-error :wk "previous")
-   "en" '(flycheck-next-error :wk "next")))
+    "e" '(nil :wk "Errors")
+    "el" '(flycheck-list-errors :wk "list")
+    "ep" '(flycheck-previous-error :wk "previous")
+    "en" '(flycheck-next-error :wk "next")))
+
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode)
+  (show-smartparens-global-mode)
+
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "k" '(hydra-sexpr/body :wk "Sexpr")))
+
+(use-package company
+  :config
+  (setq company-minimum-prefix-length 2)
+  (setq company-idle-delay 0.25)
+  (define-key company-active-map (kbd "C-j") 'company-select-next)
+  (define-key company-active-map (kbd "C-k") 'company-select-previous)
+
+  (global-company-mode))
+
+(use-package company-flx
+  :after (company)
+  :config
+  (setq company-flx-limit 100)
+  (company-flx-mode t))
+
+(define-generic-mode 'ebnf-mode
+  '(("(*" . "*)"))
+  '("=")
+  '(("^[^ \t\n][^=]+" . font-lock-variable-name-face)
+    ("['\"].*?['\"]" . font-lock-string-face)
+    ("\\?.*\\?" . font-lock-negation-char-face)
+    ("\\[\\|\\]\\|{\\|}\\|(\\|)\\||\\|,\\|;" . font-lock-type-face)
+    ("[^ \t\n]" . font-lock-function-name-face))
+  '("\\.ebnf\\'")
+  `(,(lambda () (setq mode-name "EBNF")))
+  "Major mode for EBNF metasyntax text highlighting.")
+
+(provide 'ebnf-mode)

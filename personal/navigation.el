@@ -36,8 +36,7 @@
    "m" '(nil :wk "Bookmark")
    "mc" '(counsel-bookmark :wk "counsel")
    "mj" '(bookmark-jump :wk "jump")
-   "ms" '(bookmark-set :wk "set")
-   )
+   "ms" '(bookmark-set :wk "set"))
 
 (use-package projectile
   :hook (after-init . projectile-mode))

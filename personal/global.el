@@ -127,3 +127,9 @@ Repeated invocations toggle between the two most recently open buffers."
   (ivy-mode 1)
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
 				(t      . ivy--regex-fuzzy))))
+
+(use-package evil-collection
+  :ensure t
+  :after evil
+  :config
+  (evil-collection-init))
