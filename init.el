@@ -37,6 +37,8 @@
 ;; OS-specific configuration
 (when (string= system-type "darwin")
   (load-user-file "osx.el"))
+(when (string= operating-system-release "4.19.4-02480-gd44d301822f0")
+  (load-user-file "pixelbook.el"))
 
 (load-user-file "navigation.el")
 (load-user-file "utility.el")
@@ -272,7 +274,13 @@ is achieved by adding the relevant text properties."
 
 (use-package intero
   :config
-  (intero-global-mode 1))
+  (intero-global-mode 1)
+  (general-define-key
+   :states '(normal)
+   :keymaps '(intero-mode-map)
+   :prefix ","
+    "r" '(intero-restart :wk "restart")
+    ))
 
 (use-package omnisharp
   :config
@@ -409,7 +417,8 @@ is achieved by adding the relevant text properties."
     (iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
-    ((eval setq cmake-ide-build-dir
+    ((intero-targets "hs-ipfs-api:lib" "hs-ipfs-api:exe:hs-ipfs-api-exe" "hs-ipfs-api:test:hs-ipfs-api-test")
+     (eval setq cmake-ide-build-dir
            (concat
             (projectile-project-root)
             "build")))))
