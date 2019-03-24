@@ -31,6 +31,7 @@
 (setq-default indent-tabs-mode nil)
 (menu-bar-mode -1)
 (setq compilation-scroll-output t)
+(setq custom-file (expand-file-name "custom.el" user-base-dir))
 
 ;; Global packages
 
