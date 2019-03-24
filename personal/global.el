@@ -3,6 +3,19 @@
 ;; By loading them before the personalized configs, I won't have to worry about
 ;; deferring everywhere.
 
+;; Initialize package system
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-refresh-contents)
+(unless (require 'use-package nil 'noerror)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 ;; Emacs-wide defaults
 
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
