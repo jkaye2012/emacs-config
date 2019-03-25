@@ -26,9 +26,11 @@
 (load-user-module "web")
 (load-user-module "dotnet")
 (load-user-module "rust")
+(load-user-module "nim")
 (load-user-module "salt")
 (load-user-module "shell")
 
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")
 (load custom-file)
+(put 'erase-buffer 'disabled nil)

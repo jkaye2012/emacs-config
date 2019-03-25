@@ -114,6 +114,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (defhydra hydra-sexpr ()
     "Sexpr"
     ("s" sp-forward-slurp-sexp "slurp forward")
+    ("b" sp-forward-barf-sexp "slurp backward")
     ("W" sp-unwrap-sexp "unwrap"))
 
   (defhydra hydra-tide-reference ()
