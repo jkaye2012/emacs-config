@@ -1,4 +1,4 @@
-;;; Modularization
+;; Modularization
 
 (package-initialize)
 (load "~/.emacs.d/modularization.el")
@@ -23,7 +23,6 @@
 (load-user-module "elisp")
 (load-user-module "python")
 (load-user-module "haskell")
-(load-user-module "cpp")
 (load-user-module "web")
 (load-user-module "dotnet")
 (load-user-module "rust")

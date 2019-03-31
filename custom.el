@@ -13,10 +13,13 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(package-selected-packages
    (quote
-    (iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
+    (irony-eldoc iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package)))
  '(safe-local-variable-values
    (quote
-    ((intero-targets "hs-ipfs-api:lib" "hs-ipfs-api:exe:hs-ipfs-api-exe" "hs-ipfs-api:test:hs-ipfs-api-test")
+    ((eval add-to-list
+           (quote projectile-globally-ignored-directories)
+           "lib")
+     (intero-targets "hs-ipfs-api:lib" "hs-ipfs-api:exe:hs-ipfs-api-exe" "hs-ipfs-api:test:hs-ipfs-api-test")
      (eval setq cmake-ide-build-dir
            (concat
             (projectile-project-root)
