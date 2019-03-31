@@ -13,11 +13,10 @@
   (add-hook 'smartparens-mode-hook 'rainbow-delimiters-mode))
 
 (use-package flycheck
+  :hook ((prog-mode . flycheck-mode))
   :config
   (add-hook 'python-mode-hook #'(lambda () (setq flycheck-checker 'python-pylint)))
-  (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook #'(lambda () (setq flycheck-checker 'javascript-jshint)))
-  (add-hook 'js2-mode-hook 'flycheck-mode)
 
   (general-define-key
    :states '(normal visual insert emacs)

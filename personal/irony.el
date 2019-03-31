@@ -1,12 +1,17 @@
 
-(use-package cmake-mode)
-
 (use-package irony
+  :hook ((c++-mode . irony-mode)
+         (c-mode . irony-mode)
+         (objc-mode . irony-mode)
+         (irony-mode . irony-cdb-autosetup-compile-options))
+
   :config
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix ","
+   :non-normal-prefix "M-,"
+    "h" '(ff-find-other-file :wk "switch header/impl")
+    ))
 
 (use-package company-irony
   :after irony
@@ -15,9 +20,11 @@
 
 (use-package flycheck-irony
   :after irony
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  :hook ((flycheck-mode . flycheck-irony-setup)))
 
 (use-package irony-eldoc
   :after irony
   :hook (irony-mode . irony-eldoc))
+
+(load-user-module "rtags")
+(load-user-module "cmake")

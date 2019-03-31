@@ -76,7 +76,9 @@ Lisp function does not specify a special indentation."
                (funcall method indent-point state))))))))
 
 (add-hook 'emacs-lisp-mode-hook
-          (lambda () (setq-local lisp-indent-function #'Fuco1/lisp-indent-function)))
+          (lambda ()
+            (setq-local lisp-indent-function #'Fuco1/lisp-indent-function)
+            (flycheck-mode -1)))
 
 (general-define-key
    :states '(normal)
