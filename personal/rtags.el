@@ -18,6 +18,7 @@
     "rn" '(rtags-rename-symbol :wk "rename symbol")
     "rr" '(rtags-find-references-at-point :wk "find references")
     "rs" '(rtags-symbol-info :wk "symbol info")
+    "rt" '(rtags-symbol-type :wk "symbol type")
     "rv" '(rtags-find-virtuals-at-point :wk "find virtuals")
     ))
 

@@ -10,7 +10,7 @@
 
 (when (string= system-type "darwin")
   (load-user-module "osx"))
-(when (string= system-name "penguin") ; TODO: there should be a better way
+(when (string= system-name "penguin")
   (load-user-module "pixelbook"))
 
 ;;; Individual user modules
