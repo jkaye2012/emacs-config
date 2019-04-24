@@ -12,6 +12,8 @@
   (load-user-module "osx"))
 (when (string= system-name "penguin")
   (load-user-module "pixelbook"))
+(when (string= system-type  "windows-nt")
+  (load-user-module "windows-os"))
 
 ;;; Individual user modules
 
