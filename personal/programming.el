@@ -54,6 +54,8 @@
   (setq company-flx-limit 100)
   (company-flx-mode t))
 
+(use-package protobuf-mode)
+
 (define-generic-mode 'ebnf-mode
   '(("(*" . "*)"))
   '("=")
