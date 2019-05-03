@@ -14,6 +14,8 @@
   (load-user-module "pixelbook"))
 (when (string= system-type  "windows-nt")
   (load-user-module "windows-os"))
+(when (string= system-type "gnu/linux")
+  (load-user-module "linux"))
 
 ;;; Individual user modules
 
