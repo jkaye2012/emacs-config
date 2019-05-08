@@ -65,7 +65,9 @@
     ("\\[\\|\\]\\|{\\|}\\|(\\|)\\||\\|,\\|;" . font-lock-type-face)
     ("[^ \t\n]" . font-lock-function-name-face))
   '("\\.ebnf\\'")
-  `(,(lambda () (setq mode-name "EBNF")))
+  `(,(lambda ()
+       (setq mode-name "EBNF")
+       (face-remap-add-relative 'font-lock-comment-face '(:foreground "medium sea green"))))
   "Major mode for EBNF metasyntax text highlighting.")
 
 (provide 'ebnf-mode)

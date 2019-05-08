@@ -1,0 +1,10 @@
+# key: hg
+# name: header-guard
+# --
+
+#ifndef $1
+#define $1
+
+$0
+
+#endif
