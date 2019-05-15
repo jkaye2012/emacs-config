@@ -8,6 +8,8 @@
 
 ;;; OS-specific configuration
 
+(when (string= system-name "CHIWKSDEV161.belvederetrading.com")
+  (load-user-module "centos"))
 (when (string= system-type "darwin")
   (load-user-module "osx"))
 (when (string= system-name "penguin")
