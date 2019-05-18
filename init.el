@@ -40,4 +40,3 @@
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")
 (load custom-file)
-(put 'erase-buffer 'disabled nil)

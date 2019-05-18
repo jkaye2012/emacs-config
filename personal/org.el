@@ -29,7 +29,7 @@
    :keymaps '(org-mode-map)
    :prefix ","
     "a" '(org-agenda :wk "agenda")
-    "c" '(org-archive :wk "archive subtree")
+    "c" '(org-archive-subtree :wk "archive subtree")
     "g" '(org-edit-special :wk "edit linked file")
     "i" '(org-insert-heading-after-current :wk "insert heading")
     "n" '(org-next-visible-heading :wk "next heading")
