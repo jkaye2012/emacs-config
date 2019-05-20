@@ -10,7 +10,7 @@
    :states '(normal visual insert emacs)
    :prefix ","
    :non-normal-prefix "M-,"
-    "h" '(ff-find-other-file :wk "switch header/impl")
+    "h" '(projectile-find-other-file :wk "switch header/impl")
     ))
 
 (use-package company-irony
@@ -27,4 +27,3 @@
   :hook (irony-mode . irony-eldoc))
 
 (load-user-module "rtags")
-(load-user-module "cmake")

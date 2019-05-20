@@ -3,8 +3,8 @@
 
 (use-package cquery
   :config
-  (setq cquery-executable "/build/jkaye/cquery/build/cquery")
-  (setq cquery-project-roots '("/build/jkaye/Harbor/Laser"))
+  (setq cquery-executable "/usr/local/bin/cquery")
+  (setq cquery-project-roots '("/home/jkaye/git/Harbor/Laser"))
   (setq xref-prompt-for-identifier '(not xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame xref-find-references))
 
   (general-define-key

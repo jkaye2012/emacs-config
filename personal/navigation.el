@@ -24,6 +24,7 @@
 
 (use-package evil-visualstar
   :config
+  (setq evil-visualstar/persistent t)
   (global-evil-visualstar-mode))
 
 (use-package evil-matchit
