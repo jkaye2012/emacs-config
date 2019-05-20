@@ -71,3 +71,8 @@
   "Major mode for EBNF metasyntax text highlighting.")
 
 (provide 'ebnf-mode)
+
+(use-package counsel-dash
+  :after (counsel)
+  :config
+  (setq counsel-dash-common-docsets '("C++" "Python 2" "C")))
