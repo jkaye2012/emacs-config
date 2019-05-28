@@ -35,6 +35,8 @@
 (menu-bar-mode -1)
 (setq compilation-scroll-output t)
 (setq custom-file (expand-file-name "custom.el" user-base-dir))
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
 
 ;; Global packages
 

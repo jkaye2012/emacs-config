@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: bt-log-icludes
+# key: loginc
+# --
+
+#include <sstream>
+
+#include "BT.Definitions/Public/SplunkMessage.h"
+#include "BT.Logger/Public/IPersistenceLogging.h"

@@ -6,26 +6,6 @@
 using $1::$2;
 
 $2::$2()
-  : _impl{new $2::Impl()}
+  : _impl{new Impl()}
 {
 }
-
-$2::~$2()
-{
-  delete _impl;
-}
-
-
-$2::$2(const $2& other)
-  : _impl{new $2::Impl(*(other._impl))}
-{
-}
-
-$2& $2::operator=(const $2& other)
-{
-  _impl.reset(new Impl(*(other._impl)));
-  return *this;
-}
-
-$2::$2($2&& other) noexcept = default;
-$2& $2::operator=($2&& other) noexcept = default;

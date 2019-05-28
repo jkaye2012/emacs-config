@@ -50,7 +50,9 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
     "p" '(nil :wk "In project")
+    "pb" '(projectile-switch-to-buffer :wk "switch buffer")
     "pf" '(counsel-projectile-find-file :wk "find file")
+    "pk" '(projectile-kill-buffers :wk "kill buffers")
     "pr" '(projectile-replace :wk "replace")
     "p/" '(counsel-projectile-ag :wk "search")))
 
