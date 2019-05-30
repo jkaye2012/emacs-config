@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: craft-namespace
+# key: cns
+# --
+namespace $1
+{
+  $0
+}
