@@ -5,7 +5,7 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "g" '(nil :wk "Git")
-   "gb" '(magit-blame-addition :wk "blame")
+   "gb" '(magit-blame :wk "blame")
    "gs" '(magit-status :wk "status")
    "gd" '(magit-diff :wk "diff")))
 
