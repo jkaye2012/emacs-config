@@ -137,6 +137,9 @@ Repeated invocations toggle between the two most recently open buffers."
 	 ("C-k" . ivy-previous-line)
 	 ("C-l" . ivy-immediate-done)
 
+         (:map ivy-switch-buffer-map
+          ("C-k" . ivy-previous-line))
+
 	 :map counsel-find-file-map
 	 ("C-h" . counsel-up-directory))
 
