@@ -37,6 +37,7 @@
 (setq custom-file (expand-file-name "custom.el" user-base-dir))
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
+(global-hl-line-mode)
 
 ;; Global packages
 
