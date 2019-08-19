@@ -1,7 +1,6 @@
 
 (use-package rtags
   :after company
-;  :hook ((c++-mode . rtags-start-process-unless-running))
   :config
 
   (general-define-key
