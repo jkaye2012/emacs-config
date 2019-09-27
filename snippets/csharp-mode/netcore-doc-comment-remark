@@ -1,0 +1,6 @@
+# key: dcr
+# name: netcore-doc-comment-remark
+# --
+/// <remarks>
+$>/// $1
+$>/// </remarks>$0

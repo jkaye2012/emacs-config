@@ -1,0 +1,4 @@
+# key: dcp
+# name: netcore-doc-comment-param
+# --
+/// <param name="$1">$2</param>

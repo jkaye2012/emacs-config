@@ -35,6 +35,7 @@
 (load-user-module "salt")
 (load-user-module "shell")
 (load-user-module "craft-mode")
+(load-user-module "spotify")
 
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")
