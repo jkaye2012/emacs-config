@@ -10,13 +10,14 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "w" '(nil :wk "Window")
+   "wd" '(delete-window :wk "delete")
+   "wg" '(ace-window :wk "ace")
    "wh" '(evil-window-left :wk "left")
    "wj" '(evil-window-down :wk "down")
    "wk" '(evil-window-up :wk "up")
    "wl" '(evil-window-right :wk "right")
-   "wg" '(ace-window :wk "ace")
-   "wd" '(delete-window :wk "delete")
    "wm" '(delete-other-windows :wk "maximize")
+   "wo" '(other-window :wk "other")
    "ws" '(hydra-window-select/body :wk "select")
    "w/" '(evil-window-vsplit :wk "split vertically")
    "w-" '(evil-window-split :wk "split horizontally")
@@ -54,7 +55,7 @@
     "pf" '(counsel-projectile-find-file :wk "find file")
     "pk" '(projectile-kill-buffers :wk "kill buffers")
     "pr" '(projectile-replace :wk "replace")
-    "p/" '(counsel-projectile-ag :wk "search")))
+    "p/" '(counsel-projectile-rg :wk "search")))
 
 (use-package avy
   :config

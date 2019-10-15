@@ -35,6 +35,7 @@
    :states '(normal)
    :keymaps 'anaconda-mode-map
    :prefix ","
+    "b" '(python-shell-send-buffer :wk "send buffer")
     "d" '(anaconda-mode-show-doc :wk "show documentation")
     "g" '(anaconda-mode-find-definitions :wk "go to definition")
     "i" '(my/python-shell :wk "interactive shell"))
