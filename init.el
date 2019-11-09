@@ -34,6 +34,7 @@
 (load-user-module "nim")
 (load-user-module "salt")
 (load-user-module "shell")
+(load-user-module "markdown")
 (load-user-module "craft-mode")
 (load-user-module "spotify")
 
