@@ -6,10 +6,9 @@
 ;; Initialize package system
 
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+(setq package-archives
+             '(("melpa-stable" . "https://stable.melpa.org/packages/")
+               ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
 (unless (require 'use-package nil 'noerror)
   (package-install 'use-package))
