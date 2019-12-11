@@ -1,0 +1,4 @@
+# key: invn
+# name: py_invalid_name
+# --
+# pylint: disable=invalid-name
