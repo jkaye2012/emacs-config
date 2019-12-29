@@ -9,6 +9,7 @@
    :prefix ","
    "b" '(rust-compile :wk "build")
    "f" '(rust-format-buffer :wk "format")
+   "g" '(racer-find-definition :wk "go to defn")
    "l" '(rust-run-clippy :wk "lint")
    "p" '(nil :wk "Playpen")
    "pb" '(rust-playpen-buffer :wk "buffer")
