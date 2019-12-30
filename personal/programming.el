@@ -1,4 +1,5 @@
 ;; Ubiquitous programming tools
+
 (use-package iedit)
 
 (use-package yasnippet
@@ -45,7 +46,6 @@
   (setq company-idle-delay 0.25)
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
-
   (global-company-mode))
 
 (use-package company-flx

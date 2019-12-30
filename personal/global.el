@@ -150,6 +150,7 @@ Repeated invocations toggle between the two most recently open buffers."
 	ivy-height 20)
   (ivy-mode 1)
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
+                                (counsel-rg . ivy--regex-plus)
                                 (counsel-projectile-rg . ivy--regex-plus)
 				(t      . ivy--regex-fuzzy))))
 

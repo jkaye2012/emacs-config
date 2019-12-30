@@ -1,8 +1,8 @@
 
 (use-package all-the-icons
   :config
-  ; (all-the-icons-install-fonts t)
-  )
+  (unless (find-font (font-spec :name "all-the-icons"))
+    (all-the-icons-install-fonts t)))
 
 (use-package doom-themes
   :after (all-the-icons)
