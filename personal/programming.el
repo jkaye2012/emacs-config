@@ -83,3 +83,7 @@
    :non-normal-prefix "M-SPC"
     "d" '(nil :wk "Dash")
     "dd" '(counsel-dash :wk "search")))
+
+(use-package highlight-doxygen
+  :config
+  (highlight-doxygen-global-mode))
