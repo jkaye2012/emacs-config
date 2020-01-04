@@ -92,6 +92,8 @@ Repeated invocations toggle between the two most recently open buffers."
    "bp" '(my/switch-to-previous-buffer :wk "previous")
    "br" '(counsel-recentf :wk "list")
 
+   "c" '(org-capture :wk "capture")
+
    "f" '(nil :wk "File")
    "ff" '(counsel-find-file :wk "find")
 

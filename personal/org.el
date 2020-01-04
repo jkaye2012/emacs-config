@@ -33,6 +33,7 @@
     "g" '(org-edit-special :wk "edit linked file")
     "i" '(org-insert-heading-after-current :wk "insert heading")
     "n" '(org-next-visible-heading :wk "next heading")
+    "o" '(org-open-at-point :wk "open")
     "p" '(org-previous-visible-heading :wk "previous heading")
     "s" '(org-sort :wk "sort")
     "t" '(nil :wk "Todo")
