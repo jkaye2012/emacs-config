@@ -15,5 +15,5 @@
   :hook (after-init . doom-modeline-mode))
 
 (if (find-font (font-spec :name "Source Code Pro"))
-    (set-frame-font "Source Code Pro 13" nil t)
+    (set-frame-font "Source Code Pro 12" nil t)
   (message "Source Code Pro not found; consider installing it?"))
