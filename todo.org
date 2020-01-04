@@ -1,4 +1,2 @@
 * New features
-** Doom theme/modeline/icons?
 * Improvements
-** Move most functionality from init.el to modular files
