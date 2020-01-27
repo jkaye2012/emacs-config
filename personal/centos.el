@@ -1,7 +1,4 @@
 
-(add-to-list 'default-frame-alist
-             '(font . "Source Code Pro-10"))
-
 (load-user-module "irony")
 
 (defun my/c++-indentation()

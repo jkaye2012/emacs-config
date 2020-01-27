@@ -4,7 +4,14 @@
 
 (use-package yasnippet
   :config
-  (yas-global-mode t))
+  (yas-global-mode t)
+
+  (general-define-key
+   :states '(normal insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "y" '(nil :wk "Snippets")
+    "yd" '(yas-describe-tables :wk "describe")))
 
 (use-package yasnippet-snippets
   :after (yasnippet))
