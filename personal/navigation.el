@@ -55,6 +55,7 @@
     "pf" '(counsel-projectile-find-file :wk "find file")
     "pk" '(projectile-kill-buffers :wk "kill buffers")
     "pr" '(projectile-replace :wk "replace")
+    "ps" '(projectile-switch-project :wk "switch")
     "p/" '(counsel-projectile-rg :wk "search")))
 
 (use-package avy

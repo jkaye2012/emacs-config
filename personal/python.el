@@ -4,7 +4,10 @@
   (pyenv-mode))
 
 (use-package virtualenvwrapper
-  :hook ((eshell-mode . venv-initialize-eshell))
+  :hook ((eshell-mode . venv-initialize-eshell)
+         (venv-postactivate . (lambda () (interactive)
+                                (setq flycheck-python-pylint-executable
+                                      (format "~/envs/%s/bin/pylint" venv-current-name)))))
 
   :config
   (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
