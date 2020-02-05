@@ -51,11 +51,11 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
     "p" '(nil :wk "In project")
-    "pb" '(projectile-switch-to-buffer :wk "switch buffer")
+    "pb" '(counsel-projectile-switch-to-buffer :wk "switch buffer")
     "pf" '(counsel-projectile-find-file :wk "find file")
     "pk" '(projectile-kill-buffers :wk "kill buffers")
     "pr" '(projectile-replace :wk "replace")
-    "ps" '(projectile-switch-project :wk "switch")
+    "ps" '(counsel-projectile-switch-project :wk "switch")
     "p/" '(counsel-projectile-rg :wk "search")))
 
 (use-package avy
