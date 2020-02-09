@@ -6,13 +6,13 @@
 
   (general-define-key
    :states '(normal visual insert emacs)
-   :prefix ","
+   :prefix "SPC"
    :non-normal-prefix "M-,"
-    "s" '(nil :wk "Spotify")
-    "sn" '(counsel-spotify-next :wk "next")
-    "sp" '(counsel-spotify-previous :wk "previous")
-    "ss" '(nil :wk "Search")
-    "ssa" '(counsel-spotify-search-artist :wk "artist")
-    "sst" '(counsel-spotify-search-track :wk "track")
-    "st" '(counsel-spotify-toggle-play-pause :wk "play/pause")
+    "S" '(nil :wk "Spotify")
+    "Sn" '(counsel-spotify-next :wk "next")
+    "Sp" '(counsel-spotify-previous :wk "previous")
+    "Ss" '(nil :wk "Search")
+    "Ssa" '(counsel-spotify-search-artist :wk "artist")
+    "Sst" '(counsel-spotify-search-track :wk "track")
+    "St" '(counsel-spotify-toggle-play-pause :wk "play/pause")
     ))

@@ -8,11 +8,11 @@
 
 ;;; OS-specific configuration
 
-(when (string= system-name "CHIWKSDEV161.belvederetrading.com")
+(when (string= (system-name) "colwksdev001.belvederetrading.com")
   (load-user-module "centos"))
 (when (string= system-type "darwin")
   (load-user-module "osx"))
-(when (string= system-name "penguin")
+(when (string= (system-name) "penguin")
   (load-user-module "pixelbook"))
 (when (string= system-type  "windows-nt")
   (load-user-module "windows-os"))
@@ -25,6 +25,7 @@
 (load-user-module "programming")
 (load-user-module "git")
 (load-user-module "elisp")
+(load-user-module "cpp")
 (load-user-module "python")
 (load-user-module "groovy")
 (load-user-module "haskell")
@@ -38,6 +39,7 @@
 (load-user-module "markdown")
 (load-user-module "craft-mode")
 (load-user-module "spotify")
+(load-user-module "treemacs")
 
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")

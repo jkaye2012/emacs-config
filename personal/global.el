@@ -7,8 +7,8 @@
 
 (require 'package)
 (setq package-archives
-             '(("melpa-stable" . "https://stable.melpa.org/packages/")
-               ("melpa" . "https://melpa.org/packages/")))
+      '(("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
 (unless (require 'use-package nil 'noerror)
   (package-install 'use-package))
@@ -131,7 +131,7 @@ Repeated invocations toggle between the two most recently open buffers."
     ("p" tide-find-previous-reference "previous"))
   )
 
-(use-package counsel
+(use-package ivy
   :bind (:map ivy-minibuffer-map
 	 ("C-u" . ivy-scroll-down-command)
 	 ("C-d" . ivy-scroll-up-command)
@@ -140,21 +140,25 @@ Repeated invocations toggle between the two most recently open buffers."
 	 ("C-l" . ivy-immediate-done)
 
          (:map ivy-switch-buffer-map
-          ("C-k" . ivy-previous-line))
-
-	 :map counsel-find-file-map
-	 ("C-h" . counsel-up-directory))
-
+          ("C-k" . ivy-previous-line)))
   :config
   (setq ivy-use-virtual-buffers t
-	ivy-count-format "%d/%d "
+        ivy-count-format "%d/%d "
         ivy-use-virtual-buffers t
 	ivy-height 20)
   (ivy-mode 1)
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (counsel-rg . ivy--regex-plus)
                                 (counsel-projectile-rg . ivy--regex-plus)
-				(t      . ivy--regex-fuzzy))))
+                                (t      . ivy--regex-fuzzy))))
+
+(use-package ivy-xref
+  :ensure t
+  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
+(use-package counsel
+  :bind (:map counsel-find-file-map
+	 ("C-h" . counsel-up-directory)))
 
 (use-package evil-collection
   :ensure t
