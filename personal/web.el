@@ -24,6 +24,7 @@
 ;    (add-hook 'before-save-hook 'tide-organize-imports)
     (setq company-tooltip-align-annotations t))
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (add-hook 'before-save-hook #'tide-format-before-save)
 
   (add-hook 'js2-mode-hook #'setup-tide-mode)
   ;; configure javascript-tide checker to run after your default javascript checker
@@ -57,6 +58,7 @@
 (use-package web-mode
   :after (tide)
   :config
+  (setq web-mode-enable-auto-quoting nil)
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook
             (lambda ()

@@ -38,6 +38,7 @@
 (use-package smartparens
   :config
   (require 'smartparens-config)
+  (setq sp-escape-quotes-after-insert nil)
   (smartparens-global-mode)
   (show-smartparens-global-mode)
 
@@ -83,7 +84,7 @@
 (use-package counsel-dash
   :after (counsel)
   :config
-  (setq counsel-dash-common-docsets '("C++" "Python 2" "C"))
+  (setq counsel-dash-common-docsets '("C++" "C"))
 
   (general-define-key
    :states '(normal visual insert emacs)
@@ -94,4 +95,7 @@
 
 (use-package highlight-doxygen
   :config
-  (highlight-doxygen-global-mode))
+  ; (highlight-doxygen-global-mode)
+  )
+
+(use-package feature-mode)

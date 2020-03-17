@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: pragma-once
+# key: po
+# --
+
+#pragma once
+
+$0
