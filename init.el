@@ -10,6 +10,8 @@
 
 (when (string= (system-name) "colwksdev001.belvederetrading.com")
   (load-user-module "centos"))
+(when (string= system-type "gnu/linux")
+  (load-user-module "centos"))
 (when (string= system-type "darwin")
   (load-user-module "osx"))
 (when (string= (system-name) "penguin")
