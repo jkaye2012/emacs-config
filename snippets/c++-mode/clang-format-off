@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: clang-format-off
+# key: cfo
+# --
+// clang-format off
+$0
+// clang-format on

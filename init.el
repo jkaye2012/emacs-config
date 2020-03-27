@@ -42,6 +42,7 @@
 (load-user-module "craft-mode")
 (load-user-module "spotify")
 (load-user-module "treemacs")
+(load-user-module "midnight")
 
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")

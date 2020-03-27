@@ -7,6 +7,7 @@
   (setq org-log-into-drawer t)
   (setq org-log-reschedule 'time)
   (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
@@ -31,6 +32,7 @@
     "a" '(org-agenda :wk "agenda")
     "c" '(org-archive-subtree :wk "archive subtree")
     "g" '(org-edit-special :wk "edit linked file")
+    "i" '(org-insert-subheading :wk "insert subheading")
     "i" '(org-insert-heading-after-current :wk "insert heading")
     "n" '(org-next-visible-heading :wk "next heading")
     "o" '(org-open-at-point :wk "open")
