@@ -1,15 +1,16 @@
 
 (use-package rust-mode
+  :hook ((rust-mode . lsp)
+         (rust-mode . (lambda () (setq-local my/lsp-should-format-buffer nil))))
+
   :config
   (setq rust-format-on-save t)
-
   (general-define-key
    :states '(normal)
    :keymaps 'rust-mode-map
    :prefix ","
    "b" '(rust-compile :wk "build")
    "f" '(rust-format-buffer :wk "format")
-   "g" '(racer-find-definition :wk "go to defn")
    "l" '(rust-run-clippy :wk "lint")
    "p" '(nil :wk "Playpen")
    "pb" '(rust-playpen-buffer :wk "buffer")
@@ -17,18 +18,6 @@
    "r" '(rust-run :wk "run")
    "t" '(rust-test :wk "test")
    "ee" '(eval-defun :wk "defun")))
-
-(use-package racer
-  :after (rust-mode)
-  :config
-  (add-hook 'rust-mode-hook 'racer-mode)
-  (add-hook 'racer-mode-hook 'eldoc-mode)
-  (add-hook 'racer-mode-hook 'company-mode))
-
-(use-package flycheck-rust
-  :after (rust-mode)
-  :config
-  (add-hook 'rust-mode-hook 'flycheck-rust-setup))
 
 (use-package cargo
   :after (rust-mode)

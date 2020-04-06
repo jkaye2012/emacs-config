@@ -1,4 +1,4 @@
-;; Modularization
+;; Modulatization
 
 (package-initialize)
 (load "~/.emacs.d/modularization.el")
