@@ -37,6 +37,7 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 (global-hl-line-mode)
+(column-number-mode)
 
 ;; Global packages
 
@@ -83,7 +84,7 @@ Repeated invocations toggle between the two most recently open buffers."
    "SPC" '(counsel-M-x :wk "Execute command")
    "'" '(eshell :wk "Eshell")
    "\\" '(my/find-config :wk "Edit config")
-   "/" '(swiper :wk "Interactive search")
+   "/" '(counsel-grep-or-swiper :wk "Interactive search")
 
    "b" '(nil :wk "Buffer")
    "bb" '(ivy-switch-buffer :wk "list")

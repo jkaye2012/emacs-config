@@ -19,6 +19,7 @@
    "wm" '(delete-other-windows :wk "maximize")
    "wo" '(other-window :wk "other")
    "ws" '(hydra-window-select/body :wk "select")
+   "wt" '(toggle-truncate-lines :wk "toggle line truncation")
    "w/" '(evil-window-vsplit :wk "split vertically")
    "w-" '(evil-window-split :wk "split horizontally")
    ))

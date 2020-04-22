@@ -43,6 +43,7 @@
 (load-user-module "spotify")
 (load-user-module "treemacs")
 (load-user-module "midnight")
+(load-user-module "zeroc")
 
 ;; Load decorations and customizations after everything else is finished
 (load-user-module "decoration")
