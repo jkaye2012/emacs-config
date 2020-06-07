@@ -6,11 +6,16 @@
     (lsp-format-buffer)))
 
 (use-package lsp-mode
+  :after (company)
   :hook ((c++-mode . lsp)
          (lsp-mode . lsp-ui-mode)
-         (lsp-mode . lsp-ui-peek-mode)
          (before-save . my/lsp-format-buffer))
 
+  :bind (:map company-active-map
+         ("C-j". company-select-next)
+         ("C-k". company-select-previous)
+         ("RET". company-complete-selection))
+ 
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-imenu nil)

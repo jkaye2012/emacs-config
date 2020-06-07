@@ -2,7 +2,7 @@
 (use-package rust-mode
   :hook ((rust-mode . lsp)
          (rust-mode . (lambda () (setq-local my/lsp-should-format-buffer nil))))
-
+  
   :config
   (setq rust-format-on-save t)
   (general-define-key
@@ -21,8 +21,8 @@
 
 (use-package cargo
   :after (rust-mode)
+  :hook ((rust-mode . cargo-minor-mode))
   :config
-  (add-hook 'rust-mode-hook 'cargo-minor-mode)
 
   (general-define-key
    :states '(normal)
