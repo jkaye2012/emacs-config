@@ -22,6 +22,9 @@
    "wt" '(toggle-truncate-lines :wk "toggle line truncation")
    "w/" '(evil-window-vsplit :wk "split vertically")
    "w-" '(evil-window-split :wk "split horizontally")
+
+   "F" '(nil :wk "Frame")
+   "Fo" '(other-frame :wk "other")
    ))
 
 (use-package evil-visualstar
