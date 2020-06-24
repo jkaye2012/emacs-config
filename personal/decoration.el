@@ -7,7 +7,7 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-oceanic-next t)
+  (load-theme 'doom-gruvbox t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
