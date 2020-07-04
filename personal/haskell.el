@@ -1,14 +1,11 @@
 
-(use-package haskell-mode
-  :config
-  (require 'haskell-doc))
-
-(use-package intero
-  :config
-  (intero-global-mode 1)
-  (general-define-key
-   :states '(normal)
-   :keymaps '(intero-mode-map)
-   :prefix ","
-    "r" '(intero-restart :wk "restart")
-    ))
+(use-package dante
+  :ensure t
+  :after haskell-mode
+  :commands 'dante-mode
+  :init
+  (add-hook 'haskell-mode-hook 'flycheck-mode)
+  ;; OR:
+  ;; (add-hook 'haskell-mode-hook 'flymake-mode)
+  (add-hook 'haskell-mode-hook 'dante-mode)
+  )
