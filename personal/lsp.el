@@ -2,7 +2,7 @@
 
 (defun my/lsp-format-buffer ()
   (interactive)
-  (when my/lsp-should-format-buffer
+  (when (and (boundp 'lsp-mode) lsp-mode my/lsp-should-format-buffer)
     (lsp-format-buffer)))
 
 (use-package lsp-mode

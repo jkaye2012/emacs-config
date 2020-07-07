@@ -40,6 +40,12 @@
 (global-hl-line-mode)
 (column-number-mode)
 
+;; Shell inheritance
+(use-package exec-path-from-shell
+  :init
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 ;; Global packages
 
 (use-package evil
