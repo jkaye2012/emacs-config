@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: rule-of-five
+# key: rof
+# --
+
+  ~$1();
+  $1($1 const&) = delete;
+  $1& operator=($1 const&) = delete;
+  $1($1&&) noexcept = delete;
+  $1& operator=($1&&) noexcept = delete;

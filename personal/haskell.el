@@ -1,11 +1,5 @@
 
-(use-package dante
+(use-package lsp-haskell
   :ensure t
-  :after haskell-mode
-  :commands 'dante-mode
-  :init
-  (add-hook 'haskell-mode-hook 'flycheck-mode)
-  ;; OR:
-  ;; (add-hook 'haskell-mode-hook 'flymake-mode)
-  (add-hook 'haskell-mode-hook 'dante-mode)
-  )
+  :config
+  (setq lsp-haskell-process-path-hie "/usr/local/bin/haskell-language-server-wrapper"))

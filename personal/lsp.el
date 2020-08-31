@@ -15,8 +15,9 @@
          ("C-j". company-select-next)
          ("C-k". company-select-previous)
          ("RET". company-complete-selection))
- 
+
   :config
+  (setq lsp-restart 'auto-restart)
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-imenu nil)
   (setq lsp-enable-xref nil)
@@ -54,5 +55,3 @@
 (use-package company-lsp)
 
 (use-package lsp-ivy)
-
-; (use-package lsp-treemacs :commands lsp-treemacs-errors-list)

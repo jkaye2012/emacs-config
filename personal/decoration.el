@@ -1,7 +1,7 @@
 
 (use-package all-the-icons
   :config
-  (unless (find-font (font-spec :name "all-the-icons"))
+  (when (and window-system (not (find-font (font-spec :name "all-the-icons"))))
     (all-the-icons-install-fonts t)))
 
 (use-package doom-themes
