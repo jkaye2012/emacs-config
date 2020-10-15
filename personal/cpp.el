@@ -3,6 +3,7 @@
  :keymaps '(c++-mode-map)
  :states '(normal)
  :prefix ","
+  "c" '(compile :wk "Compile")
   "h" '(projectile-find-other-file :wk "switch header/impl"))
 
 (defun my/c++-indentation ()

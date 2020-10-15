@@ -21,7 +21,7 @@
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-imenu nil)
   (setq lsp-enable-xref nil)
-  (setq lsp-clients-clangd-args '("-j=2" "--log=info" "--background-index" "--clang-tidy" "--header-insertion=iwyu" "--pch-storage=disk"))
+  (setq lsp-clients-clangd-args '("--j=2" "--log=info" "--background-index" "--clang-tidy" "--header-insertion=iwyu" "--pch-storage=disk"))
 
   (general-define-key
    :states '(normal)
@@ -32,6 +32,7 @@
     "la" '(lsp-ui-find-workspace-symbol :wk "find symbol")
     "lc" '(lsp-ui-doc-mode :wk "toggle docs")
     "ld" '(lsp-find-declaration :wk "find declaration")
+    "le" '(lsp-execute-code-action :wk "execute code action")
     "lf" '(lsp-find-definition :wk "find definition")
     "lh" '(lsp- :wk "find definition")
     "li" '(lsp-find-implementation :wk "find impls")

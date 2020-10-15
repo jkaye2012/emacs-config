@@ -1,4 +1,4 @@
-;; Modulatization
+;; Modularization
 
 (package-initialize)
 (load "~/.emacs.d/modularization.el")
@@ -46,5 +46,6 @@
 (load-user-module "zeroc")
 
 ;; Load decorations and customizations after everything else is finished
+(load-themes)
 (load-user-module "decoration")
 (load custom-file)

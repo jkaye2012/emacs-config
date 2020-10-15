@@ -7,13 +7,18 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-gruvbox t)
+  (load-theme 'doom-acario-light t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
   :after (doom-themes)
   :hook (after-init . doom-modeline-mode))
 
-(if (find-font (font-spec :name "Source Code Pro"))
-    (set-frame-font "Source Code Pro 11" nil t)
-  (message "Source Code Pro not found; consider installing it?"))
+(use-package sublime-themes
+  :after (all-the-icons))
+
+(cond ((find-font (font-spec :name "Source Code Pro"))
+       (set-frame-font "Source Code Pro 11" nil t))
+      ((find-font (font-spec :name "Fira Code"))
+       (set-frame-font "Fira Code 11" nil t))
+      (t (message "No fonts found; consider installing one?")))
