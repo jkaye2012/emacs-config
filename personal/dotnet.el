@@ -1,29 +1,9 @@
 
-(use-package omnisharp
-  :config
-  (defun my-csharp-mode-setup ()
-    (omnisharp-mode)
-    (company-mode)
-    (flycheck-mode)
-
-    (setq indent-tabs-mode nil)
-    (setq c-syntactic-indentation t)
-    (c-set-style "ellemtel")
-    (setq c-basic-offset 4)
-    (setq truncate-lines t)
-    (setq tab-width 4)
-    (setq evil-shift-width 4)
-
-    (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
-    (local-set-key (kbd "C-c C-c") 'recompile))
-  (eval-after-load 'company '(add-to-list 'company-backends #'company-omnisharp))
-  (add-hook 'csharp-mode-hook 'my-csharp-mode-setup t))
-
 (use-package dotnet
   :config
   (general-define-key
    :states '(normal)
-   :keymaps '(omnisharp-mode-map)
+   :keymaps '(csharp-mode-map)
    :prefix ","
     "d" '(nil :wk "Dotnet Cli")
     "da" '(nil :wk "Add")

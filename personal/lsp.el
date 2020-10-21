@@ -8,6 +8,7 @@
 (use-package lsp-mode
   :after (company)
   :hook ((c++-mode . lsp)
+         (csharp-mode . lsp)
          (lsp-mode . lsp-ui-mode)
          (before-save . my/lsp-format-buffer))
 
