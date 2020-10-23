@@ -9,6 +9,7 @@
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
   (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
               (evil-org-set-key-theme)))
