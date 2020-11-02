@@ -22,6 +22,7 @@
 ;;; Individual user modules
 
 (load-user-module "navigation")
+(load-user-module "undo")
 (load-user-module "utility")
 (load-user-module "org")
 (load-user-module "programming")

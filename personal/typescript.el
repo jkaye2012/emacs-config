@@ -1,5 +1,5 @@
 
 (use-package typescript-mode
   :hook ((typescript-mode . lsp))
-  :config
+  :init
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode)))
