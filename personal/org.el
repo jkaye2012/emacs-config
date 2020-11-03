@@ -56,18 +56,19 @@
   (evil-org-agenda-set-keys))
 
 (use-package org-roam
-      :ensure t
-      :hook (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/org")
-      :config
+  :ensure t
+  :hook (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory "~/org")
+
+  :config
   (general-define-key
    :states '(normal)
    :keymaps '(org-mode-map)
    :prefix ","
-    "r" '(nil :wk "Roam")
-    "rf" '(org-roam-find-file :wk "find file")
-    "rg" '(org-roam-graph :wk "graph")
-    "ri" '(org-roam-insert :wk "insert")
-    "rr" '(org-roam :wk "roam"))
+   "r" '(nil :wk "Roam")
+   "rf" '(org-roam-find-file :wk "find file")
+   "rg" '(org-roam-graph :wk "graph")
+   "ri" '(org-roam-insert :wk "insert")
+   "rr" '(org-roam :wk "roam"))
   )

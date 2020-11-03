@@ -47,6 +47,6 @@
 (load-user-module "zeroc")
 
 ;; Load decorations and customizations after everything else is finished
-; (load-themes)
+(load-themes)
 (load-user-module "decoration")
 (load custom-file)
