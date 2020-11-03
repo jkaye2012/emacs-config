@@ -1,7 +1,8 @@
 
 (use-package pyenv-mode
   :config
-  (pyenv-mode))
+  (when (executable-find "pyenv")
+    (pyenv-mode)))
 
 (use-package virtualenvwrapper
   :hook ((eshell-mode . venv-initialize-eshell)

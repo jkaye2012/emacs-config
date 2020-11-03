@@ -11,7 +11,10 @@
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
     "y" '(nil :wk "Snippets")
-    "yd" '(yas-describe-tables :wk "describe")))
+    "yd" '(yas-describe-tables :wk "describe")
+    "yn" '(yas-new-snippet :wk "new")
+    "yv" '(yas-visit-snippet-file :wk "visit"))
+  )
 
 (use-package yasnippet-snippets
   :after (yasnippet))

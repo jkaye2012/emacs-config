@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: checklist
+# key: cl
+# --
+- [ ] $0

@@ -7,6 +7,7 @@
   (setq org-log-into-drawer t)
   (setq org-log-reschedule 'time)
   (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-files '("~/org"))
   (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
@@ -15,16 +16,19 @@
               (evil-org-set-key-theme)))
 
   (general-define-key
-   :states '(normal visual insert emacs)
+   :states '(normal visual emacs)
    :keymaps '(org-mode-map)
-   "<tab>" '(org-cycle)
-  )
+   "<tab>" '(org-cycle))
 
   (general-define-key
    :states '(normal)
    :keymaps '(org-mode-map)
-    "t" 'org-shiftright
-   )
+    "t" 'org-shiftright)
+
+  (general-define-key
+   :states '(insert)
+   :keymaps '(org-mode-map)
+   "C-i" 'org-insert-item)
 
   (general-define-key
    :states '(normal)
@@ -45,7 +49,25 @@
     "ts" '(org-schedule :wk "schedule")
     "tt" '(org-shiftright :wk "cycle")
     "tT" '(org-shiftleft :wk "cycle backwards")
-    "tg" '(org-todo :wk "goto state"))
+    "tg" '(org-todo :wk "goto state")
+    "w" '(ispell-word :wk "Fix word"))
 
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+(use-package org-roam
+      :ensure t
+      :hook (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/org")
+      :config
+  (general-define-key
+   :states '(normal)
+   :keymaps '(org-mode-map)
+   :prefix ","
+    "r" '(nil :wk "Roam")
+    "rf" '(org-roam-find-file :wk "find file")
+    "rg" '(org-roam-graph :wk "graph")
+    "ri" '(org-roam-insert :wk "insert")
+    "rr" '(org-roam :wk "roam"))
+  )
