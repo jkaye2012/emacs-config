@@ -8,12 +8,14 @@
   (setq org-log-reschedule 'time)
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-files '("~/org"))
-  (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+  (setq ispell-silently-savep t)
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
-              (evil-org-set-key-theme)))
+              (evil-org-set-key-theme)
+              (company-mode -1)))
+  (advice-add 'org-archive-subtree :after #'org-save-all-org-buffers)
 
   (general-define-key
    :states '(normal visual emacs)

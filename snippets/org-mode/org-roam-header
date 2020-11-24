@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: org-roam-header
+# key: roam
+# --
+#+title: $1
+#+date: `(format-time-string "%Y:%m:%d")`
+#+description: $2
+#+roam_tags: $3
+
+$0
