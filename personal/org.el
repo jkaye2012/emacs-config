@@ -57,6 +57,13 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(defun my/org-roam-find-file ()
+  (interactive)
+  (org-roam-find-file nil nil #'(lambda (completions)
+                                  (seq-filter #'(lambda (comp)
+                                                  (not (string-match "archived" (car comp))))
+                                              completions))))
+
 (use-package org-roam
   :ensure t
   :hook (after-init . org-roam-mode)
@@ -69,7 +76,7 @@
    :keymaps '(org-mode-map)
    :prefix ","
    "r" '(nil :wk "Roam")
-   "rf" '(org-roam-find-file :wk "find file")
+   "rf" '(my/org-roam-find-file :wk "find file")
    "rg" '(org-roam-graph :wk "graph")
    "ri" '(org-roam-insert :wk "insert")
    "rr" '(org-roam :wk "roam"))
