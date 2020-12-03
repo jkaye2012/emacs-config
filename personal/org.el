@@ -2,6 +2,12 @@
 (use-package evil-org
   :ensure t
   :after org
+  :custom
+  (org-link-frame-setup '((vm . vm-visit-folder-other-frame)
+                          (vm-imap . vm-visit-imap-folder-other-frame)
+                          (gnus . org-gnus-no-new-news)
+                          (file . find-file)
+                          (wl . wl-other-frame)))
   :config
   (setq org-todo-keywords '((sequence "TODO(t!)" "IN PROGRESS(i!)" "DONE(d@)")))
   (setq org-log-into-drawer t)
@@ -52,7 +58,8 @@
     "tt" '(org-shiftright :wk "cycle")
     "tT" '(org-shiftleft :wk "cycle backwards")
     "tg" '(org-todo :wk "goto state")
-    "w" '(ispell-word :wk "Fix word"))
+    "w" '(ispell-word :wk "Fix word")
+    "x" '(org-toggle-checkbox :wk "Toggle checkbox"))
 
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
@@ -69,6 +76,7 @@
   :hook (after-init . org-roam-mode)
   :custom
   (org-roam-directory "~/org")
+  (org-roam-index-file "~/org/index.org")
 
   :config
   (general-define-key
@@ -79,5 +87,6 @@
    "rf" '(my/org-roam-find-file :wk "find file")
    "rg" '(org-roam-graph :wk "graph")
    "ri" '(org-roam-insert :wk "insert")
+   "rj" '(org-roam-jump-to-index :wk "jump to index")
    "rr" '(org-roam :wk "roam"))
   )
