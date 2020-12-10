@@ -16,11 +16,17 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Automatically keep packages up to date
+(use-package auto-package-update
+  :init
+  (auto-package-update-at-time "03:00"))
+
 ;; Emacs-wide defaults
 
 (setq backup-directory-alist '(("." . "~/.emacs-saves")))
 (recentf-mode t)
 (setf recentf-max-saved-items 50)
+(setq imenu-max-item-length nil)
 (run-at-time nil (* 5 60)
              (lambda ()
                (let ((inhibit-message t))

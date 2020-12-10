@@ -7,7 +7,7 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-acario-light t)
+  (load-theme 'doom-vibrant t)
   (doom-themes-org-config))
 
 (use-package doom-modeline

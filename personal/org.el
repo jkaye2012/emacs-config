@@ -1,13 +1,21 @@
+(defun org-open-at-point-current-window ()
+  (interactive)
+  (let ((org-link-frame-setup '((vm . vm-visit-folder-other-frame)
+                                (vm-imap . vm-visit-imap-folder-other-frame)
+                                (gnus . org-gnus-no-new-news)
+                                (file . find-file)
+                                (wl . wl-other-frame))))
+    (org-open-at-point)))
+
+(defun my/org-open-at-point (&optional arg)
+  (interactive "P")
+  (if arg
+      (org-open-at-point-current-window)
+    (org-open-at-point)))
 
 (use-package evil-org
   :ensure t
   :after org
-  :custom
-  (org-link-frame-setup '((vm . vm-visit-folder-other-frame)
-                          (vm-imap . vm-visit-imap-folder-other-frame)
-                          (gnus . org-gnus-no-new-news)
-                          (file . find-file)
-                          (wl . wl-other-frame)))
   :config
   (setq org-todo-keywords '((sequence "TODO(t!)" "IN PROGRESS(i!)" "DONE(d@)")))
   (setq org-log-into-drawer t)
@@ -48,7 +56,7 @@
     "i" '(org-insert-subheading :wk "insert subheading")
     "i" '(org-insert-heading-after-current :wk "insert heading")
     "n" '(org-next-visible-heading :wk "next heading")
-    "o" '(org-open-at-point :wk "open")
+    "o" '(my/org-open-at-point :wk "open")
     "p" '(org-previous-visible-heading :wk "previous heading")
     "s" '(org-sort :wk "sort")
     "t" '(nil :wk "Todo")
@@ -79,6 +87,12 @@
   (org-roam-index-file "~/org/index.org")
 
   :config
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "r" '(org-roam-jump-to-index :wk "Roam index"))
+
   (general-define-key
    :states '(normal)
    :keymaps '(org-mode-map)

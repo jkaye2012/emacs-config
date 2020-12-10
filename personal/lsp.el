@@ -10,6 +10,7 @@
   :hook ((c++-mode . lsp)
          (csharp-mode . lsp)
          (lsp-mode . lsp-ui-mode)
+         (lsp-mode . lsp-ui-doc-mode)
          (before-save . my/lsp-format-buffer))
 
   :bind (:map company-active-map
