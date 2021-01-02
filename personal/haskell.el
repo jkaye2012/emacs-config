@@ -10,4 +10,7 @@
   :hook ((haskell-mode . lsp)
          (haskell-mode . lsp-ui-doc-mode))
   :config
+  (setq haskell-process-type 'stack-ghci)
+  (setq haskell-prompt-regexp "Prelude> ")
+  (require 'ob-haskell)
   (setq lsp-haskell-process-path-hie "/usr/local/bin/haskell-language-server-wrapper"))

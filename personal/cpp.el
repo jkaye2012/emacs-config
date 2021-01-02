@@ -15,3 +15,9 @@
   (c-set-offset 'case-label '+)
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my/c++-indentation)
+
+(lsp-register-client
+   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                    :major-modes '(c++-mode)
+                    :remote? t
+                    :server-id 'clangd-remote))

@@ -7,7 +7,7 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-vibrant t)
+  (load-theme 'doom-oceanic-next t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -16,6 +16,9 @@
 
 (use-package sublime-themes
   :after (all-the-icons))
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
 
 (cond ((find-font (font-spec :name "Source Code Pro"))
        (set-frame-font "Source Code Pro 11" nil t))
