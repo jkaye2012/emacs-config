@@ -1,0 +1,21 @@
+# key: ccs
+# name: confighub-change-script
+# expand-env: ((yas-indent-line 'fixed))
+# --
+CONFIGHUB_CHANGE:
+  Producer:
+    Prod:
+      star:
+        star:
+          Python.GRVersion: 1
+          Laser.GRVersion: 2
+          CS.GRVersion: 3
+CONFIGHUB_FILE:
+  Producer:
+    Prod:
+      star:
+        star:
+          GeneralRelease.json: {
+    "Python": \${Python.GRVersion},
+    "Laser": \${Laser.GRVersion},
+    "CS": \${CS.GRVersion}}

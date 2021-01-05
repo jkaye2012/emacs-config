@@ -45,6 +45,7 @@
 (global-display-line-numbers-mode)
 (global-hl-line-mode)
 (column-number-mode)
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ;; Shell inheritance
 (use-package exec-path-from-shell
@@ -64,6 +65,10 @@
   (define-key evil-normal-state-map (kbd "<tab>") 'evil-indent-line)
   (define-key evil-motion-state-map (kbd ",") nil)
   (evil-mode 1))
+
+(add-hook 'erc-mode-hook #'(lambda ()
+                             (interactive)
+                             (rainbow-delimiters-mode -1)))
 
 (defun my/switch-to-previous-buffer ()
   "Switch to previously open buffer.
