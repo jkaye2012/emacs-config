@@ -2,6 +2,7 @@
 
 (package-initialize)
 (load "~/.emacs.d/modularization.el")
+(defvar custom-local "~/.emacs.d/custom-local.el")
 
 ;; Globals must be loaded before anything else; this include package system initialization
 (load-user-module "global")
@@ -28,6 +29,7 @@
 (load-user-module "programming")
 (load-user-module "git")
 (load-user-module "elisp")
+(load-user-module "csharp")
 (load-user-module "cpp")
 (load-user-module "python")
 (load-user-module "groovy")
@@ -50,3 +52,5 @@
 (load-themes)
 (load-user-module "decoration")
 (load custom-file)
+(when (file-exists-p custom-local)
+  (load custom-local))

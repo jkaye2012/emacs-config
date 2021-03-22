@@ -11,21 +11,10 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#1B2229" "#8ec07c"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#555556"))
  '(package-selected-packages
-   '(emojify auto-package-update org-roam sublime-themes dante lsp-haskell gnu-elpa-keyring-update feature-mode company-math treemacs-icons-dired treemacs-magit treemacs-projectile treemacs-evil treemacs lsp-ivy company-lsp lsp-ui eglot keychain-environment counsel-spotify spotify ini-mode company-rtags cmake-ide magit-gerrit protobuf-mode ssh groovy-mode ivy-rtags irony-eldoc iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet omnisharp company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package))
+   '(omnisharp csharp-mode tree-sitter vterm emojify auto-package-update org-roam sublime-themes dante lsp-haskell gnu-elpa-keyring-update feature-mode company-math treemacs-icons-dired treemacs-magit treemacs-projectile treemacs-evil treemacs lsp-ivy company-lsp lsp-ui eglot keychain-environment counsel-spotify spotify ini-mode company-rtags cmake-ide magit-gerrit protobuf-mode ssh groovy-mode ivy-rtags irony-eldoc iedit doom-modeline ace-window jinja2-mode exec-path-from-shell evil-collection dotnet company-anaconda google-this shx intero markdown-mode web-mode tide company-tern xref-js2 js2-mode npm-mode docker docker-mode docker-compose-mode dockerfile-mode evil-org smex w3m counsel-dash multi-term counsel-projectile counsel racer cmake-mode rust-mode evil-visualstar flycheck-rtags rtags flycheck-irony company-irony irony evil-matchit yasnippet-snippets yasnippet evil rainbow-delimiters evil-magit magit smart-mode-line-powerline-theme smart-mode-line eshell-prompt-extras nose virtualenvwrapper pyenv-mode avy anaconda-mode ample-theme flycheck which-key smartparens use-package))
  '(safe-local-variable-values
-   '((sql-dialect . "postgres")
-     (sql-product . "postgres")
-     (eval setq-local org-default-notes-file
-           (concat
-            (locate-dominating-file default-directory ".dir-locals.el")
-            "todo.org"))
-     (eval setq projectile-enable-caching t)
-     (eval add-to-list 'projectile-globally-ignored-directories "lib")
-     (intero-targets "hs-ipfs-api:lib" "hs-ipfs-api:exe:hs-ipfs-api-exe" "hs-ipfs-api:test:hs-ipfs-api-test")
-     (eval setq cmake-ide-build-dir
-           (concat
-            (projectile-project-root)
-            "build"))))
+   '((org-publish-project-alist quote
+                                ("The Technical Leader" :base-directory "~/git/the-technical-leader/book" :publishing-directory "~/git/the-technical-leader/publish" :publishing-function org-latex-publish-to-latex :body-only t :makeindex t))))
  '(term-unbind-key-list '("C-z" "C-x" "C-c" "C-h" "C-y" "<ESC>"))
  '(vc-annotate-background "#282828")
  '(vc-annotate-color-map
