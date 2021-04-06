@@ -44,6 +44,7 @@
 (load-user-module "markdown")
 (load-user-module "craft-mode")
 (load-user-module "spotify")
+(load-user-module "tramp")
 (load-user-module "treemacs")
 (load-user-module "midnight")
 (load-user-module "zeroc")

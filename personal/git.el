@@ -8,5 +8,3 @@
    "gb" '(magit-blame :wk "blame")
    "gs" '(magit-status :wk "status")
    "gd" '(magit-diff :wk "diff")))
-
-(use-package evil-magit)

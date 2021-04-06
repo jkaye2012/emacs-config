@@ -7,8 +7,9 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-oceanic-next t)
-  (doom-themes-org-config))
+  (load-theme 'doom-acario-light t)
+  (doom-themes-org-config)
+  (doom-themes-treemacs-config))
 
 (use-package doom-modeline
   :after (doom-themes)
