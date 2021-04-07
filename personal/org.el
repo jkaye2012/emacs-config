@@ -21,7 +21,7 @@
   (setq org-log-into-drawer t)
   (setq org-log-reschedule 'time)
   (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files '("~/sync"))
   (setq ispell-silently-savep t)
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
@@ -83,8 +83,8 @@
   :ensure t
   :hook (after-init . org-roam-mode)
   :custom
-  (org-roam-directory "~/org")
-  (org-roam-index-file "~/org/index.org")
+  (org-roam-directory "~/sync")
+  (org-roam-index-file "~/sync/index.org")
 
   :config
   (general-define-key

@@ -12,6 +12,7 @@
 
   :config
   (setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))
+  (setq venv-location "~/envs")
   (venv-initialize-interactive-shells)
   (venv-initialize-eshell))
 
@@ -60,3 +61,12 @@
    "t" '(nil :wk "Test")
    "tm" '(nosetests-module :wk "buffer")
    "tt" '(nosetests-one :wk "current")))
+
+;; (use-package lsp-python-ms
+;;   :init (setq lsp-python-ms-auto-install-server t)
+;;   :config
+;;   (add-hook 'hack-local-variables-hook
+;;             (lambda ()
+;;               (when (derived-mode-p 'python-mode)
+;;                 (require 'lsp-python-ms)
+;;                 (lsp)))))
