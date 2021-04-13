@@ -7,7 +7,7 @@
 (use-package doom-themes
   :after (all-the-icons)
   :config
-  (load-theme 'doom-acario-light t)
+  (load-theme 'tsdh-light t)
   (doom-themes-org-config)
   (doom-themes-treemacs-config))
 
