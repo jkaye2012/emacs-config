@@ -84,18 +84,6 @@
 
 (provide 'ebnf-mode)
 
-(use-package counsel-dash
-  :after (counsel)
-  :config
-  (setq counsel-dash-common-docsets '("C++" "C"))
-
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-    "d" '(nil :wk "Dash")
-    "dd" '(counsel-dash :wk "search")))
-
 (use-package highlight-doxygen
   :config
   ; (highlight-doxygen-global-mode)

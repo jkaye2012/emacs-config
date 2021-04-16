@@ -27,6 +27,7 @@
 (load-user-module "utility")
 (load-user-module "org")
 (load-user-module "programming")
+(load-user-module "documentation")
 (load-user-module "git")
 (load-user-module "elisp")
 (load-user-module "csharp")
