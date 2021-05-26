@@ -23,6 +23,7 @@
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-files '("~/sync"))
   (setq ispell-silently-savep t)
+  (setq org-insert-heading-respect-content t)
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'evil-org-mode-hook
@@ -53,7 +54,6 @@
     "a" '(org-agenda :wk "agenda")
     "c" '(org-archive-subtree :wk "archive subtree")
     "g" '(org-edit-special :wk "edit linked file")
-    "i" '(org-insert-subheading :wk "insert subheading")
     "i" '(org-insert-heading-after-current :wk "insert heading")
     "n" '(org-next-visible-heading :wk "next heading")
     "o" '(my/org-open-at-point :wk "open")
