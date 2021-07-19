@@ -72,12 +72,16 @@
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
 
+(defun my/org-roam-filter-node (node)
+  (not (member "archived" (org-roam-node-tags node))))
+
 (defun my/org-roam-find-file ()
   (interactive)
-  (org-roam-find-file nil nil #'(lambda (completions)
-                                  (seq-filter #'(lambda (comp)
-                                                  (not (string-match "archived" (car comp))))
-                                              completions))))
+  (org-roam-node-find nil nil #'my/org-roam-filter-node))
+
+(defun my/org-roam-insert ()
+  (interactive)
+  (org-roam-node-insert #'my/org-roam-filter-node))
 
 (use-package org-roam
   :ensure t
@@ -100,7 +104,6 @@
    "r" '(nil :wk "Roam")
    "rf" '(my/org-roam-find-file :wk "find file")
    "rg" '(org-roam-graph :wk "graph")
-   "ri" '(org-roam-insert :wk "insert")
-   "rj" '(org-roam-jump-to-index :wk "jump to index")
-   "rr" '(org-roam :wk "roam"))
+   "ri" '(my/org-roam-insert :wk "insert")
+   "rr" '(org-roam-setup :wk "roam"))
   )
