@@ -85,10 +85,12 @@
 
 (use-package org-roam
   :ensure t
-  :hook (after-init . org-roam-mode)
+  :hook (after-init . org-roam-setup)
   :custom
   (org-roam-directory "~/sync")
   (org-roam-index-file "~/sync/index.org")
+  (org-roam-file-exclude-regexp ".debris")
+  (org-roam-v2-ack t)
 
   :config
   (general-define-key
