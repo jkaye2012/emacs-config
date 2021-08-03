@@ -46,6 +46,7 @@
 (global-hl-line-mode)
 (column-number-mode)
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(setq org-roam-v2-ack t)
 
 ;; Shell inheritance
 (use-package exec-path-from-shell

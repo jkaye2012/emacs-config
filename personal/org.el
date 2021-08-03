@@ -90,22 +90,13 @@
   (org-roam-directory "~/sync")
   (org-roam-index-file "~/sync/index.org")
   (org-roam-file-exclude-regexp ".debris")
-  (org-roam-v2-ack t)
 
   :config
   (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-    "r" '(org-roam-jump-to-index :wk "Roam index"))
-
-  (general-define-key
    :states '(normal)
-   :keymaps '(org-mode-map)
-   :prefix ","
+   :prefix "SPC"
    "r" '(nil :wk "Roam")
    "rf" '(my/org-roam-find-file :wk "find file")
    "rg" '(org-roam-graph :wk "graph")
    "ri" '(my/org-roam-insert :wk "insert")
-   "rr" '(org-roam-setup :wk "roam"))
-  )
+   "rn" '(org-id-get-create :wk "create node")))
