@@ -90,3 +90,7 @@
   )
 
 (use-package feature-mode)
+
+(use-package origami-mode
+  :config
+  (global-origami-mode))

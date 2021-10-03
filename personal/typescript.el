@@ -4,7 +4,10 @@
 
 (use-package typescript-mode
   :hook ((typescript-mode . lsp)
-         (typescript-mode . my/typescript-delay))
+         (typescript-mode . my/typescript-delay)
+         (mhtml-mode . lsp)
+         (js-mode . lsp)
+         (js-mode . my/typescript-delay))
   :init
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode)))
 

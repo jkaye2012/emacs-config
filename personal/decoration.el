@@ -19,7 +19,10 @@
   :after (all-the-icons))
 
 (use-package emojify
-  :hook (after-init . global-emojify-mode))
+  :hook (after-init . global-emojify-mode)
+  :config
+  (setq emojify-emoji-styles '(unicode github))
+  )
 
 (cond ((find-font (font-spec :name "Source Code Pro"))
        (set-frame-font "Source Code Pro 11" nil t))

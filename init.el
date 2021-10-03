@@ -35,6 +35,7 @@
 (load-user-module "python")
 (load-user-module "groovy")
 (load-user-module "haskell")
+(load-user-module "dart")
 (load-user-module "web")
 (load-user-module "dotnet")
 (load-user-module "rust")
