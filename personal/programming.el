@@ -91,6 +91,6 @@
 
 (use-package feature-mode)
 
-(use-package origami-mode
+(use-package origami
   :config
   (global-origami-mode))
