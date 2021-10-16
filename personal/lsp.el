@@ -55,6 +55,4 @@
   (define-key lsp-ui-peek-mode-map (kbd "C-j") 'lsp-ui-peek--select-next)
   (define-key lsp-ui-peek-mode-map (kbd "C-k") 'lsp-ui-peek--select-prev))
 
-(use-package company-lsp)
-
 (use-package lsp-ivy)

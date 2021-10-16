@@ -49,24 +49,3 @@
   :after (anaconda-mode)
   :config
   (add-to-list 'company-backends 'company-anaconda))
-
-(use-package nose
-  :after (anaconda-mode)
-  :config
-  (defvar nose-use-verbose nil)
-  (general-define-key
-   :states '(normal)
-   :keymaps 'anaconda-mode-map
-   :prefix ","
-   "t" '(nil :wk "Test")
-   "tm" '(nosetests-module :wk "buffer")
-   "tt" '(nosetests-one :wk "current")))
-
-;; (use-package lsp-python-ms
-;;   :init (setq lsp-python-ms-auto-install-server t)
-;;   :config
-;;   (add-hook 'hack-local-variables-hook
-;;             (lambda ()
-;;               (when (derived-mode-p 'python-mode)
-;;                 (require 'lsp-python-ms)
-;;                 (lsp)))))
