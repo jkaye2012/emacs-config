@@ -21,11 +21,21 @@
 (use-package emojify
   :hook (after-init . global-emojify-mode)
   :config
-  (setq emojify-emoji-styles '(unicode github))
-  )
+  (setq emojify-emoji-styles '(unicode github)))
 
-(cond ((find-font (font-spec :name "Source Code Pro"))
-       (set-frame-font "Source Code Pro 11" nil t))
-      ((find-font (font-spec :name "Fira Code"))
-       (set-frame-font "Fira Code 11" nil t))
-      (t (message "No fonts found; consider installing one?")))
+(use-package fira-code-mode
+  :config
+  (when (not (find-font (font-spec :name "Fira Code Symbol")))
+    (fira-code-mode-install-fonts t))
+  (global-fira-code-mode))
+
+(defun my/set-font ()
+  (interactive)
+  (cond
+   ((find-font (font-spec :name "Fira Code"))
+    (set-frame-font "Fira Code 11" nil t))
+   ((find-font (font-spec :name "Source Code Pro"))
+    (set-frame-font "Source Code Pro 11" nil t))
+   (t (message "No fonts found; consider installing one?"))))
+
+(add-hook 'window-setup-hook 'my/set-font)
