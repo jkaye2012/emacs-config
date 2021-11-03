@@ -27,7 +27,8 @@
   :config
   (when (not (find-font (font-spec :name "Fira Code Symbol")))
     (fira-code-mode-install-fonts t))
-  (global-fira-code-mode))
+  (global-fira-code-mode)
+  (fira-code-mode-set-font))
 
 (defun my/set-font ()
   (interactive)
