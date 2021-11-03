@@ -38,7 +38,8 @@ is achieved by adding the relevant text properties."
    :prefix "SPC"
    :non-normal-prefix "M-SPC"
    "t" '(nil :wk "Terminal")
-   "tt" '(multi-term :wk "new")
    "tn" '(multi-term-next :wk "next")
    "tp" '(multi-term-prev :wk "next")
+   "tt" '(multi-term :wk "new")
+   "tv" '(vterm :wk "vterm")
    ))
