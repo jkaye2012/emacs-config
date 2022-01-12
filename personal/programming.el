@@ -58,6 +58,7 @@
   (define-key company-active-map (kbd "C-j") 'company-select-next)
   (define-key company-active-map (kbd "C-k") 'company-select-previous)
   (define-key company-active-map (kbd "RET") 'company-complete-selection)
+  (define-key company-active-map (kbd "C-RET") 'company-abort)
   (global-company-mode))
 
 (use-package company-flx

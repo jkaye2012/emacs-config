@@ -19,5 +19,5 @@
 (defun load-themes ()
   (interactive)
   "Load all themes provided with local sources"
-  (mapc '(lambda (f) (load-file f))
+  (mapc #'(lambda (f) (load-file f))
         (directory-files user-themes-dir t ".el$")))

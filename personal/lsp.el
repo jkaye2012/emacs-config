@@ -51,7 +51,8 @@
 
 (use-package lsp-ui
   :config
-  (setq lsp-ui-doc-enable nil)
+  (setq lsp-ui-doc-enable t)
+  (define-key evil-normal-state-map (kbd ";") 'lsp-ui-doc-glance)
   (define-key lsp-ui-peek-mode-map (kbd "C-j") 'lsp-ui-peek--select-next)
   (define-key lsp-ui-peek-mode-map (kbd "C-k") 'lsp-ui-peek--select-prev))
 

@@ -23,7 +23,6 @@
 ;;; Individual user modules
 
 (load-user-module "navigation")
-(load-user-module "undo")
 (load-user-module "utility")
 (load-user-module "org")
 (load-user-module "programming")
@@ -50,6 +49,7 @@
 (load-user-module "treemacs")
 (load-user-module "midnight")
 (load-user-module "zeroc")
+(load-user-module "undo")
 
 ;; Load decorations and customizations after everything else is finished
 (load-themes)

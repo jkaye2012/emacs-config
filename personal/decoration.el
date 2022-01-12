@@ -27,6 +27,7 @@
   :config
   (when (not (find-font (font-spec :name "Fira Code Symbol")))
     (fira-code-mode-install-fonts t))
+  (setq fira-code-mode-disabled-ligatures '("x" "-}"))
   (global-fira-code-mode)
   (fira-code-mode-set-font))
 
