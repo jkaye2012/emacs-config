@@ -12,5 +12,6 @@
   :config
   (setq haskell-process-type 'stack-ghci)
   (setq haskell-prompt-regexp "Prelude> ")
-  (require 'ob-haskell)
-  (setq lsp-haskell-process-path-hie "/usr/local/bin/haskell-language-server-wrapper"))
+  (require 'ob-haskell))
+
+; (add-hook 'haskell-mode-hook #'(lambda () (flycheck-mode -1)))

@@ -95,6 +95,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (general-define-key
    :states '(normal)
     "M-u" '(universal-argument :wk "Universal argument")
+    "C-/" '(comment-dwim :wk "Comment dwim")
     "C-j" '(evil-paste-pop :wk "Paste previous")
     "C-k" '(evil-paste-pop-next :wk "Paste next"))
 
