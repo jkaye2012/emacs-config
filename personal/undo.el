@@ -1,7 +1,7 @@
 
 (use-package undo-tree
+  :hook (prog-mode . undo-tree-mode)
   :config
-  (global-undo-tree-mode)
 
   (general-define-key
    :states '(normal)
