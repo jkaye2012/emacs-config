@@ -39,6 +39,7 @@
 (load-user-module "dotnet")
 (load-user-module "rust")
 (load-user-module "nim")
+(load-user-module "julia")
 (load-user-module "salt")
 (load-user-module "shell")
 (load-user-module "typescript")

@@ -13,5 +13,3 @@
   (setq haskell-process-type 'stack-ghci)
   (setq haskell-prompt-regexp "Prelude> ")
   (require 'ob-haskell))
-
-; (add-hook 'haskell-mode-hook #'(lambda () (flycheck-mode -1)))
