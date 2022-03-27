@@ -23,6 +23,7 @@
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-files '("~/sync"))
   (setq ispell-silently-savep t)
+  (setq ispell-personal-dictionary "~/.emacs.d/.hunspell_en_US")
   (setq org-insert-heading-respect-content t)
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)

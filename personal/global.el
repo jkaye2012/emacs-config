@@ -118,6 +118,7 @@ Repeated invocations toggle between the two most recently open buffers."
    "c" '(org-capture :wk "capture")
 
    "f" '(nil :wk "File")
+   "fd" '(delete-file :wk "delete")
    "ff" '(counsel-find-file :wk "find")
 
    "h"  '(nil :wk "Help")

@@ -1,5 +1,7 @@
 
 (use-package markdown-mode
+  :hook (markdown-mode . flyspell-mode)
+
   :config
   (general-define-key
    :states '(normal)

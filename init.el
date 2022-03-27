@@ -4,15 +4,15 @@
 (load "~/.emacs.d/modularization.el")
 (defvar custom-local "~/.emacs.d/custom-local.el")
 
-;; Globals must be loaded before anything else; this include package system initialization
+;; Globals must be loaded before anything else; this includes package system initialization
 (load-user-module "global")
 
 ;;; OS-specific configuration
 
 (when (string= (system-name) "colwksdev001.belvederetrading.com")
-  (load-user-module "centos"))
+  (load-user-module "linux"))
 (when (string= system-type "gnu/linux")
-  (load-user-module "centos"))
+  (load-user-module "linux"))
 (when (string= system-type "darwin")
   (load-user-module "osx"))
 (when (string= (system-name) "penguin")
@@ -35,7 +35,7 @@
 (load-user-module "groovy")
 (load-user-module "haskell")
 (load-user-module "dart")
-(load-user-module "web")
+(load-user-module "docker")
 (load-user-module "dotnet")
 (load-user-module "rust")
 (load-user-module "nim")
@@ -51,6 +51,7 @@
 (load-user-module "midnight")
 (load-user-module "zeroc")
 (load-user-module "undo")
+(load-user-module "config")
 
 ;; Load decorations and customizations after everything else is finished
 (load-themes)

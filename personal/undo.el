@@ -1,7 +1,9 @@
 
 (use-package undo-tree
-  :hook (prog-mode . undo-tree-mode)
+  :hook (font-lock-mode . undo-tree-mode)
+
   :config
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree-history")))
 
   (general-define-key
    :states '(normal)
