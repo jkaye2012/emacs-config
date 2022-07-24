@@ -23,7 +23,7 @@
   (setq lsp-prefer-flymake nil)
   (setq lsp-enable-imenu nil)
   (setq lsp-enable-xref nil)
-  (setq lsp-clients-clangd-args '("-j=2" "--log=info" "--background-index" "--clang-tidy" "--header-insertion=iwyu" "--pch-storage=disk"))
+  (setq lsp-clients-clangd-args '("-j=2" "--log=info" "--background-index" "--clang-tidy" "--header-insertion=iwyu" "--pch-storage=disk" "--all-scopes-completion"))
 
   (general-define-key
    :states '(normal)

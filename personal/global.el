@@ -111,7 +111,7 @@ Repeated invocations toggle between the two most recently open buffers."
    "b" '(nil :wk "Buffer")
    "bb" '(ivy-switch-buffer :wk "list")
    "bd" '(evil-delete-buffer :wk "delete")
-   "bk" '(kill-this-buffer :wk "kill")
+   "bk" '(kill-current-buffer :wk "kill")
    "bp" '(my/switch-to-previous-buffer :wk "previous")
    "br" '(counsel-recentf :wk "list")
 
