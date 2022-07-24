@@ -17,7 +17,7 @@
 (add-hook 'c++-mode-hook 'my/c++-indentation)
 
 (lsp-register-client
-   (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+   (make-lsp-client :new-connection (lsp-tramp-connection '("clangd" "-j=2" "--log=info" "--background-index" "--clang-tidy" "--header-insertion=iwyu" "--pch-storage=disk"))
                     :major-modes '(c++-mode)
                     :remote? t
                     :server-id 'clangd-remote))
