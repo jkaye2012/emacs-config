@@ -95,3 +95,16 @@
 (use-package origami
   :config
   (global-origami-mode))
+
+(use-package copilot
+  :after (quelpa-use-package)
+  :quelpa (copilot :fetcher github
+                   :repo "zerolfx/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  :config
+  (setq copilot-indent-warning-suppress t)
+  (general-define-key
+   :states '(normal insert emacs)
+    "M-<tab>" 'copilot-accept-completion :wk "accept copilot completion"
+    "M-\\" 'copilot-complete :wk "complete with copilot"))

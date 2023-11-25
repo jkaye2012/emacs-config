@@ -1,11 +1,16 @@
 
-(use-package all-the-icons
+;; (use-package all-the-icons
+;;   :config
+;;   (when (and window-system (not (find-font (font-spec :name "all-the-icons"))))
+;;     (all-the-icons-install-fonts t)))
+
+(use-package nerd-icons
   :config
-  (when (and window-system (not (find-font (font-spec :name "all-the-icons"))))
-    (all-the-icons-install-fonts t)))
+ (when (and window-system (not (find-font (font-spec :name "Symbols Nerd Font Mono"))))
+  (nerd-icons-install-fonts)))
 
 (use-package doom-themes
-  :after (all-the-icons)
+  :after (nerd-icons)
   :config
   (load-theme 'doom-nord t)
   (doom-themes-org-config)
@@ -16,20 +21,20 @@
   :hook (after-init . doom-modeline-mode))
 
 (use-package sublime-themes
-  :after (all-the-icons))
+  :after (nerd-icons))
 
 (use-package emojify
   :hook (after-init . global-emojify-mode)
   :config
   (setq emojify-emoji-styles '(unicode github)))
 
-(use-package fira-code-mode
-  :config
-  (when (not (find-font (font-spec :name "Fira Code Symbol")))
-    (fira-code-mode-install-fonts t))
-  (setq fira-code-mode-disabled-ligatures '("x" "-}"))
-  (global-fira-code-mode)
-  (fira-code-mode-set-font))
+;; (use-package fira-code-mode
+;;   :config
+;;   (when (not (find-font (font-spec :name "Fira Code Symbol")))
+;;     (fira-code-mode-install-fonts t))
+;;   (setq fira-code-mode-disabled-ligatures '("x" "-}"))
+;;   (global-fira-code-mode)
+;;   (fira-code-mode-set-font))
 
 (defun my/set-font ()
   (interactive)

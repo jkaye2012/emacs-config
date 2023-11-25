@@ -17,7 +17,14 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Quelpa
+
+(use-package quelpa)
+(use-package quelpa-use-package
+  :after (quelpa))
+
 ;; Automatically keep packages up to date
+
 (use-package auto-package-update
   :init
   (auto-package-update-at-time "03:00"))
@@ -50,6 +57,7 @@
 (setq org-roam-v2-ack t)
 
 ;; Shell inheritance
+
 (use-package exec-path-from-shell
   :init
   (when (memq window-system '(mac ns x))

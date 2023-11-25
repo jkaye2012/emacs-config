@@ -30,6 +30,7 @@
    :keymaps 'lsp-mode-map
    :prefix "SPC"
     "l" '(nil :wk "LSP")
+    "l." '(lsp-describe-thing-at-point :wk "describe at point")
     "l=" '(lsp-format-buffer :wk "format")
     "la" '(lsp-ui-find-workspace-symbol :wk "find symbol")
     "lc" '(lsp-ui-doc-mode :wk "toggle docs")
