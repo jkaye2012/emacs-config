@@ -1,0 +1,4 @@
+# key: sup
+# name: shellcheck disable
+# --
+# shellcheck disable=$1

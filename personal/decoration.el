@@ -1,8 +1,4 @@
 
-;; (use-package all-the-icons
-;;   :config
-;;   (when (and window-system (not (find-font (font-spec :name "all-the-icons"))))
-;;     (all-the-icons-install-fonts t)))
 
 (use-package nerd-icons
   :config

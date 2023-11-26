@@ -108,3 +108,8 @@
    :states '(normal insert emacs)
     "M-<tab>" 'copilot-accept-completion :wk "accept copilot completion"
     "M-\\" 'copilot-complete :wk "complete with copilot"))
+
+(use-package flymake-shellcheck
+  :commands flymake-shellcheck-load
+  :init
+  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))

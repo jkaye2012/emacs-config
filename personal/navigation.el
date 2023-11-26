@@ -25,6 +25,8 @@
 
    "F" '(nil :wk "Frame")
    "Fo" '(other-frame :wk "other")
+   "F+" '((lambda () (interactive) (set-face-attribute 'default nil :height (+ (face-attribute 'default :height) 10))) :wk "increase font size")
+   "F-" '((lambda () (interactive) (set-face-attribute 'default nil :height (- (face-attribute 'default :height) 10))) :wk "decrease font size")
    ))
 
 (use-package evil-visualstar
