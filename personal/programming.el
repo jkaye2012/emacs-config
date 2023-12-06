@@ -105,6 +105,7 @@
   :config
   (setq copilot-indent-warning-suppress t)
   (global-copilot-mode)
+  (setq copilot-idle-delay (* 60 60 10))
   (general-define-key
    :states '(normal insert emacs)
     "M-<tab>" 'copilot-accept-completion :wk "accept copilot completion"
