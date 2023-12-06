@@ -104,6 +104,7 @@
                    :files ("dist" "*.el"))
   :config
   (setq copilot-indent-warning-suppress t)
+  (global-copilot-mode)
   (general-define-key
    :states '(normal insert emacs)
     "M-<tab>" 'copilot-accept-completion :wk "accept copilot completion"
