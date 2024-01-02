@@ -41,5 +41,4 @@ is achieved by adding the relevant text properties."
    "tn" '(multi-term-next :wk "next")
    "tp" '(multi-term-prev :wk "next")
    "tt" '(multi-term :wk "new")
-   "tv" '(vterm :wk "vterm")
    ))

@@ -19,10 +19,10 @@
 (use-package sublime-themes
   :after (nerd-icons))
 
-(use-package emojify
-  :hook (after-init . global-emojify-mode)
-  :config
-  (setq emojify-emoji-styles '(unicode github)))
+;; (use-package emojify
+;;   :hook (after-init . global-emojify-mode)
+;;   :config
+;;   (setq emojify-emoji-styles '(unicode github)))
 
 ;; (use-package fira-code-mode
 ;;   :config
