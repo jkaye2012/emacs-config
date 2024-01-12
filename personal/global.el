@@ -55,6 +55,7 @@
 (column-number-mode)
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 (setq org-roam-v2-ack t)
+(setq-default fill-column 120)
 
 ;; Shell inheritance
 
@@ -182,7 +183,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (setq ivy-re-builders-alist '((swiper . ivy--regex-plus)
                                 (counsel-rg . ivy--regex-plus)
                                 (counsel-projectile-rg . ivy--regex-plus)
-                                (t      . ivy--regex-fuzzy))))
+                                (t      . ivy--regex-plus))))
 
 (use-package ivy-xref
   :ensure t

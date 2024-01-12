@@ -1,6 +1,7 @@
 
 (use-package markdown-mode
-  :hook (markdown-mode . flyspell-mode)
+  :hook ((markdown-mode . flyspell-mode)
+         (markdown-mode . auto-fill-mode))
 
   :config
   (general-define-key

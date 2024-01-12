@@ -1,4 +1,4 @@
-personal_ws-1.1 en 60 
+personal_ws-1.1 en 73 
 APM
 Adaptive's
 BT
@@ -19,6 +19,7 @@ Paravane
 Preprocessor
 QA
 Quoter
+Recurse
 Redmine
 Reflektive
 Roboto
@@ -31,10 +32,16 @@ YAML
 Yezdaan
 autofits
 autofitting
+bitmask
+bitmasks
 calc
 calcs
+callee
 centric
 cwd
+deallocated
+designator
+designators
 embeddable
 enum
 enums
@@ -42,11 +49,15 @@ greek
 greeks
 hostname
 impactful
+incrementing
 ingressed
+invariants
 metaconfiguration
 misconfiguration
+misprediction
 omniviewer
 optionality
+parallelization
 performant
 pnl
 preprocessing
@@ -54,6 +65,8 @@ quant
 quoter
 robofits
 rustup
+splitter
+splitters
 spreadboxes
 todos
 un
